@@ -1,6 +1,9 @@
 // Catch Colors Game - Main JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    initAudio();
+    // Initialize fullscreen on first interaction
+    GameNavigation.handleFirstInteraction(function() {
+        initAudio();
+    });
 });
 
 // Game state
@@ -329,13 +332,9 @@ function endGame() {
 // Navigate back to portal
 function goBack() {
     if (gameState.isPlaying) {
-        if (confirm('Quit the game?')) {
-            endGame();
-            window.location.href = '../../index.html';
-        }
-    } else {
-        window.location.href = '../../index.html';
+        endGame();
     }
+    GameNavigation.navigateToPortal();
 }
 
 // Prevent default touch behaviors

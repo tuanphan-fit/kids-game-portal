@@ -1,7 +1,10 @@
 // Crocodile Dentist Game - Main JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    initAudio();
-    initGame();
+    // Initialize fullscreen on first interaction
+    GameNavigation.handleFirstInteraction(function() {
+        initAudio();
+        initGame();
+    });
 });
 
 // Game state
@@ -319,9 +322,7 @@ function resetGame() {
 
 // Navigate back to portal
 function goBack() {
-    if (confirm('Go back to the game portal?')) {
-        window.location.href = '../../index.html';
-    }
+    GameNavigation.navigateToPortal();
 }
 
 // Prevent default touch behaviors

@@ -1,7 +1,10 @@
 // Memory Game - Main JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    initGame();
-    initAudio();
+    // Initialize fullscreen on first interaction
+    GameNavigation.handleFirstInteraction(function() {
+        initGame();
+        initAudio();
+    });
 });
 
 // Game variables
@@ -392,7 +395,5 @@ function createParticles() {
 
 // Navigate back to portal
 function goBack() {
-    if (confirm('Go back to the game portal? Your progress will be lost!')) {
-        window.location.href = '../../index.html';
-    }
+    GameNavigation.navigateToPortal();
 }

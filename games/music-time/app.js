@@ -1,9 +1,12 @@
 // Music Time Game - Main JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    initAudio();
-    initPianoKeys();
-    initAnimalKeys();
-    setMode('piano');
+    // Initialize fullscreen on first interaction
+    GameNavigation.handleFirstInteraction(function() {
+        initAudio();
+        initPianoKeys();
+        initAnimalKeys();
+        setMode('piano');
+    });
 });
 
 // Audio context
@@ -470,7 +473,7 @@ function playAnimalDemo() {
 
 // Navigate back
 function goBack() {
-    window.location.href = '../../index.html';
+    GameNavigation.navigateToPortal();
 }
 
 // Prevent default touch behaviors

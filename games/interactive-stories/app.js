@@ -1,6 +1,9 @@
 // Interactive Stories - Main JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    renderStorySelection();
+    // Initialize fullscreen on first interaction
+    GameNavigation.handleFirstInteraction(function() {
+        renderStorySelection();
+    });
 });
 
 // State
@@ -174,9 +177,7 @@ function playCompleteSound() {
 
 // Navigate back to portal
 function goBack() {
-    if (confirm('Go back to the game portal?')) {
-        window.location.href = '../../index.html';
-    }
+    GameNavigation.navigateToPortal();
 }
 
 // Prevent default touch behaviors

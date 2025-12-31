@@ -1,6 +1,9 @@
 // Drawing App - Coloring Book Feature
 document.addEventListener('DOMContentLoaded', function() {
-    initApp();
+    // Initialize fullscreen on first interaction
+    GameNavigation.handleFirstInteraction(function() {
+        initApp();
+    });
 });
 
 // Global variables
@@ -382,9 +385,7 @@ function showPictureSelection() {
 
 // Go back to portal
 function goBack() {
-    if (confirm('Go back to the game portal?')) {
-        window.location.href = '../../index.html';
-    }
+    GameNavigation.navigateToPortal();
 }
 
 // Show notification
