@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing App - My Game World</title>
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/fabric@5.3.0/dist/fabric.min.js"></script>
+</head>
+<body>
+    <div class="drawing-container">
+        <!-- Header with Back Button -->
+        <header class="drawing-header">
+            <button class="btn-back" onclick="goBack()">
+                <span class="arrow">←</span> Back
+            </button>
+            <h1 class="drawing-title">🎨 Drawing App</h1>
+            <div class="spacer"></div>
+        </header>
+
+        <!-- Canvas Area -->
+        <div class="canvas-wrapper">
+            <canvas id="drawing-canvas"></canvas>
+        </div>
+
+        <!-- Tools Section -->
+        <div class="tools-section">
+            <!-- Drawing Tools -->
+            <div class="tool-group">
+                <h3 class="tool-label">Tools</h3>
+                <div class="tool-buttons">
+                    <button class="tool-btn active" data-tool="brush" title="Brush">
+                        🖌️ Brush
+                    </button>
+                    <button class="tool-btn" data-tool="fill" title="Fill Bucket">
+                        🪣 Fill
+                    </button>
+                    <button class="tool-btn" data-tool="eraser" title="Eraser">
+                        🧽 Eraser
+                    </button>
+                </div>
+            </div>
+
+            <!-- Color Palette -->
+            <div class="tool-group">
+                <h3 class="tool-label">Colors</h3>
+                <div class="color-palette">
+                    <button class="color-btn active" data-color="#FF0000" style="background: #FF0000;" title="Red"></button>
+                    <button class="color-btn" data-color="#FFA500" style="background: #FFA500;" title="Orange"></button>
+                    <button class="color-btn" data-color="#FFFF00" style="background: #FFFF00;" title="Yellow"></button>
+                    <button class="color-btn" data-color="#00FF00" style="background: #00FF00;" title="Green"></button>
+                    <button class="color-btn" data-color="#0000FF" style="background: #0000FF;" title="Blue"></button>
+                    <button class="color-btn" data-color="#9400D3" style="background: #9400D3;" title="Purple"></button>
+                    <button class="color-btn" data-color="#000000" style="background: #000000;" title="Black"></button>
+                    <button class="color-btn" data-color="#FFFFFF" style="background: #FFFFFF; border: 2px solid #ccc;" title="White"></button>
+                </div>
+            </div>
+
+            <!-- Brush Size -->
+            <div class="tool-group">
+                <h3 class="tool-label">Size</h3>
+                <div class="size-control">
+                    <button class="size-btn" data-size="5" title="Small">
+                        ⚫
+                    </button>
+                    <button class="size-btn active" data-size="15" title="Medium">
+                        ⚫⚫
+                    </button>
+                    <button class="size-btn" data-size="30" title="Large">
+                        ⚫⚫⚫
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="tool-group">
+                <h3 class="tool-label">Actions</h3>
+                <div class="action-buttons">
+                    <button class="action-btn undo-btn" title="Undo">
+                        ↩️ Undo
+                    </button>
+                    <button class="action-btn clear-btn" title="Clear All">
+                        🗑️ Clear
+                    </button>
+                    <button class="action-btn save-btn" title="Save Picture">
+                        💾 Save
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Size Preview -->
+        <div class="brush-preview" id="brushPreview"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

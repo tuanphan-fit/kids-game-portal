@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Game World</title>
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">🎮 My Game World</h1>
+            <p class="subtitle">Pick a game and have fun!</p>
+        </header>
+
+        <main class="games-grid">
+            <!-- Drawing App - Active Game -->
+            <div class="game-card active" data-game="drawing-app" onclick="navigateToGame('drawing-app')">
+                <div class="game-icon">🎨</div>
+                <h2 class="game-title">Drawing</h2>
+                <p class="game-description">Draw and color!</p>
+            </div>
+
+            <!-- Coming Soon Games -->
+            <div class="game-card coming-soon">
+                <div class="game-icon">🧮</div>
+                <h2 class="game-title">Math Fun</h2>
+                <p class="game-description">Coming Soon!</p>
+            </div>
+
+            <div class="game-card coming-soon">
+                <div class="game-icon">🎴</div>
+                <h2 class="game-title">Memory Game</h2>
+                <p class="game-description">Coming Soon!</p>
+            </div>
+
+            <div class="game-card coming-soon">
+                <div class="game-icon">🎯</div>
+                <h2 class="game-title">Catch Colors</h2>
+                <p class="game-description">Coming Soon!</p>
+            </div>
+
+            <div class="game-card coming-soon">
+                <div class="game-icon">🎹</div>
+                <h2 class="game-title">Music Time</h2>
+                <p class="game-description">Coming Soon!</p>
+            </div>
+
+            <div class="game-card coming-soon">
+                <div class="game-icon">📖</div>
+                <h2 class="game-title">Stories</h2>
+                <p class="game-description">Coming Soon!</p>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Made with ❤️ for kids</p>
+        </footer>
+    </div>
+
+    <script>
+        function navigateToGame(gameName) {
+            if (gameName === 'drawing-app') {
+                window.location.href = 'games/drawing-app/index.html';
+            }
+        }
+
+        // Add hover sound effect (optional - requires audio files)
+        function playHoverSound() {
+            // You can add sound effects here later
+            console.log('Hover!');
+        }
+
+        // Add click animation
+        document.querySelectorAll('.game-card.active').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'scale(1.05) rotate(2deg)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>
