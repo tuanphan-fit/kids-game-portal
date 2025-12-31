@@ -1,4 +1,13 @@
-/* Reset and iPad Optimization */
+/* ========================================
+   INTERACTIVE STORIES STYLES
+   ======================================== */
+
+/* Import Design System */
+@import url('../../css/design-system.css');
+
+/* ========================================
+   1. RESET & BASE STYLES
+   ======================================== */
 * {
     margin: 0;
     padding: 0;
@@ -15,13 +24,16 @@ html, body {
 }
 
 body {
-    font-family: 'Comic Sans MS', 'Chalkboard', 'Arial Rounded MT Bold', Arial, sans-serif;
-    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    font-family: var(--font-display);
+    background-color: #FCE4EC; /* Solid pink-red tint */
+    background-image: none; /* Remove gradient */
     user-select: none;
     -webkit-user-select: none;
 }
 
-/* Container */
+/* ========================================
+   2. CONTAINER
+   ======================================== */
 .stories-container {
     height: 100vh;
     width: 100vw;
@@ -31,7 +43,9 @@ body {
            env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
-/* Story Selection Screen */
+/* ========================================
+   3. STORY SELECTION SCREEN
+   ======================================== */
 .story-selection {
     flex: 1;
     display: flex;
@@ -44,130 +58,137 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 12px 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border: 3px solid #ff9a56;
+    background: var(--bg-card);
+    padding: var(--spacing-3) var(--spacing-6);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 3px solid var(--stories-accent);
     flex-shrink: 0;
 }
 
 .btn-back {
-    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-    color: #2C3E50;
+    background-color: var(--gray-200);
+    background-image: none; /* Remove gradient */
+    color: var(--text-primary);
     border: none;
-    padding: 10px 20px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border-radius: 15px;
+    padding: var(--spacing-3) var(--spacing-5);
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
+    border-radius: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: inherit;
-    min-height: 50px;
+    transition: all 0.2s ease;
+    font-family: var(--font-display);
+    min-height: 3.5rem;
     display: flex;
     align-items: center;
-    gap: 6px;
-    box-shadow: 0 3px 12px rgba(252, 182, 159, 0.5);
+    gap: var(--spacing-2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-back:hover {
+    background-color: var(--gray-300);
+    transform: translateY(-2px);
 }
 
 .btn-back:active {
-    transform: scale(0.95);
+    transform: translateY(0) scale(0.98);
 }
 
 .btn-back .arrow {
-    font-size: 1.3rem;
+    font-size: var(--text-xl);
 }
 
 .stories-title {
-    font-size: 2rem;
-    color: #ff9a56;
-    text-shadow: 2px 2px 0 #FFD700;
+    font-size: var(--text-2xl);
+    color: var(--stories-accent);
+    text-shadow: none; /* Remove text shadow */
     margin: 0;
     flex: 1;
     text-align: center;
+    font-weight: var(--font-extrabold);
 }
 
 .spacer {
-    width: 120px;
+    width: 7.5rem;
 }
 
 /* Selection Header */
 .selection-header {
     text-align: center;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    margin: 20px;
-    border-radius: 20px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    padding: var(--spacing-6);
+    background: var(--bg-card);
+    margin: var(--spacing-6);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     flex-shrink: 0;
 }
 
 .selection-header h2 {
-    font-size: 2rem;
-    color: #ff9a56;
-    margin-bottom: 10px;
+    font-size: var(--text-2xl);
+    color: var(--stories-accent);
+    margin-bottom: var(--spacing-3);
+    font-weight: var(--font-bold);
 }
 
 .selection-header p {
-    font-size: 1.2rem;
-    color: #7F8C8D;
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
 }
 
 /* Stories Grid */
 .stories-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    padding-bottom: 40px;
+    gap: var(--spacing-6);
+    padding: var(--spacing-6);
+    padding-bottom: var(--spacing-12);
 }
 
 /* Story Card */
 .story-card {
-    background: white;
-    border-radius: 25px;
-    padding: 25px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    background: var(--bg-card);
+    border-radius: 1.5rem;
+    padding: var(--spacing-8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 5px solid transparent;
+    transition: all 0.2s ease;
+    border: 4px solid transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: var(--spacing-4);
     text-align: center;
+    animation: none; /* Remove animations */
 }
 
 .story-card:hover {
-    transform: translateY(-10px) scale(1.05);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-color: var(--stories-accent);
 }
 
 .story-card:active {
-    transform: scale(0.98);
+    transform: translateY(0) scale(0.98);
 }
 
 .story-emoji {
     font-size: 5rem;
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+    animation: none; /* Remove float animation */
 }
 
 .story-name {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #2C3E50;
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--text-primary);
 }
 
 .story-info {
-    font-size: 1rem;
-    color: #7F8C8D;
+    font-size: var(--text-base);
+    color: var(--text-secondary);
 }
 
-/* Story Reader Screen */
+/* ========================================
+   4. STORY READER SCREEN
+   ======================================== */
 .story-reader {
     flex: 1;
     display: flex;
@@ -179,65 +200,59 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 12px 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border: 3px solid #ff9a56;
+    background: var(--bg-card);
+    padding: var(--spacing-3) var(--spacing-6);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 3px solid var(--stories-accent);
     flex-shrink: 0;
-    gap: 10px;
+    gap: var(--spacing-3);
 }
 
 .story-title {
-    font-size: 1.5rem;
-    color: #ff9a56;
+    font-size: var(--text-xl);
+    color: var(--stories-accent);
     margin: 0;
     flex: 1;
     text-align: center;
+    font-weight: var(--font-bold);
 }
 
 .page-indicator {
-    background: linear-gradient(135deg, #ffd93d 0%, #ff9a3c 100%);
-    padding: 10px 15px;
-    border-radius: 12px;
-    font-weight: bold;
-    color: white;
-    font-size: 1.1rem;
-    box-shadow: 0 3px 10px rgba(255, 217, 61, 0.3);
+    background-color: var(--warning);
+    background-image: none; /* Remove gradient */
+    padding: var(--spacing-3) var(--spacing-4);
+    border-radius: 0.75rem;
+    font-weight: var(--font-semibold);
+    color: var(--text-inverse);
+    font-size: var(--text-base);
+    box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
 }
 
-/* Story Content */
+/* ========================================
+   5. STORY CONTENT
+   ======================================== */
 .story-content {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: var(--spacing-6);
     overflow-y: auto;
     align-items: center;
 }
 
 .story-illustration {
-    background: white;
-    border-radius: 25px;
-    padding: 40px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    margin-bottom: 25px;
+    background: var(--bg-card);
+    border-radius: 1.5rem;
+    padding: var(--spacing-12);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: var(--spacing-8);
     min-width: 200px;
     min-height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+    /* Remove fadeIn animation - keep it static */
+    animation: none;
 }
 
 .illustration-emoji {
@@ -248,64 +263,64 @@ body {
 
 .story-text-container {
     background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 1.5rem;
+    padding: var(--spacing-8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     max-width: 800px;
     width: 100%;
-    animation: slideUp 0.5s ease;
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    /* Remove slideUp animation - keep it static */
+    animation: none;
 }
 
 .story-text {
-    font-size: 1.6rem;
-    color: #2C3E50;
+    font-size: var(--text-lg);
+    color: var(--text-primary);
     line-height: 1.8;
     text-align: center;
 }
 
-/* Story Controls */
+/* ========================================
+   6. STORY CONTROLS
+   ======================================== */
 .story-controls {
     display: flex;
-    gap: 20px;
-    padding: 20px;
+    gap: var(--spacing-6);
+    padding: var(--spacing-6);
     justify-content: center;
     flex-shrink: 0;
 }
 
 .control-btn {
-    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-    color: #2C3E50;
-    border: none;
-    padding: 18px 35px;
-    font-size: 1.3rem;
-    font-weight: bold;
-    border-radius: 20px;
+    background-color: var(--bg-card);
+    background-image: none; /* Remove gradient */
+    color: var(--text-primary);
+    border: 3px solid var(--stories-accent);
+    padding: var(--spacing-5) var(--spacing-10);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    border-radius: 1.25rem;
     cursor: pointer;
-    box-shadow: 0 6px 20px rgba(168, 237, 234, 0.4);
-    font-family: inherit;
-    min-width: 150px;
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    font-family: var(--font-display);
+    min-width: 9rem;
+    transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .control-btn:active {
-    transform: scale(0.95);
+    transform: translateY(0) scale(0.98);
 }
 
 .control-btn.primary {
-    background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-    color: white;
-    box-shadow: 0 6px 20px rgba(86, 171, 47, 0.4);
+    background-color: var(--success);
+    background-image: none; /* Remove gradient */
+    color: var(--text-inverse);
+    border: none;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
 }
 
 .control-btn:disabled {
@@ -313,14 +328,17 @@ body {
     cursor: not-allowed;
 }
 
-/* Story Complete Screen */
+/* ========================================
+   7. STORY COMPLETE SCREEN
+   ======================================== */
 .story-complete {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-color: var(--stories-accent);
+    background-image: none; /* Remove gradient */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -328,74 +346,75 @@ body {
 }
 
 .complete-content {
-    background: white;
-    border-radius: 30px;
-    padding: 50px;
+    background: var(--bg-card);
+    border-radius: 2rem;
+    padding: var(--spacing-14);
     text-align: center;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     max-width: 500px;
-    animation: popIn 0.5s ease;
+    animation: scaleIn 0.3s ease;
 }
 
-@keyframes popIn {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-    50% {
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+@keyframes scaleIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
 .complete-title {
-    font-size: 3.5rem;
+    font-size: var(--text-3xl);
     color: #FFD700;
-    text-shadow: 3px 3px 0 #FF6B6B;
-    margin-bottom: 20px;
+    text-shadow: none; /* Remove text shadow */
+    margin-bottom: var(--spacing-6);
+    font-weight: var(--font-extrabold);
 }
 
 .complete-message {
-    font-size: 1.8rem;
-    color: #2C3E50;
-    margin-bottom: 40px;
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-12);
 }
 
 .btn-restart,
 .btn-home {
-    background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-    color: white;
+    background-color: var(--success);
+    background-image: none; /* Remove gradient */
+    color: var(--text-inverse);
     border: none;
-    padding: 20px 40px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    border-radius: 20px;
+    padding: var(--spacing-6) var(--spacing-12);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    border-radius: 1.25rem;
     cursor: pointer;
-    box-shadow: 0 8px 25px rgba(86, 171, 47, 0.4);
-    font-family: inherit;
-    margin: 10px;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    font-family: var(--font-display);
+    margin: var(--spacing-3);
     display: block;
     width: 100%;
 }
 
 .btn-home {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    background-color: var(--stories-accent);
+    background-image: none; /* Remove gradient */
+    box-shadow: 0 4px 12px rgba(236, 67, 106, 0.3);
+}
+
+.btn-restart:hover,
+.btn-home:hover {
+    transform: translateY(-2px);
 }
 
 .btn-restart:active,
 .btn-home:active {
-    transform: scale(0.95);
+    transform: translateY(0) scale(0.98);
 }
 
-/* Responsive Design */
+/* ========================================
+   8. RESPONSIVE DESIGN
+   ======================================== */
 @media (orientation: portrait) {
     .stories-grid {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 15px;
+        gap: var(--spacing-4);
     }
 
     .story-emoji {
@@ -403,17 +422,17 @@ body {
     }
 
     .story-name {
-        font-size: 1.2rem;
+        font-size: var(--text-base);
     }
 
     .story-text {
-        font-size: 1.4rem;
+        font-size: var(--text-lg);
     }
 
     .control-btn {
-        padding: 15px 25px;
-        font-size: 1.1rem;
-        min-width: 120px;
+        padding: var(--spacing-4) var(--spacing-8);
+        font-size: var(--text-base);
+        min-width: 7.5rem;
     }
 }
 
@@ -421,7 +440,7 @@ body {
     .story-content {
         flex-direction: row;
         justify-content: center;
-        gap: 30px;
+        gap: var(--spacing-10);
     }
 
     .story-illustration {
@@ -436,17 +455,17 @@ body {
 
 @media (max-width: 768px) {
     .stories-header {
-        padding: 10px 15px;
+        padding: var(--spacing-3) var(--spacing-4);
     }
 
     .btn-back {
-        padding: 8px 15px;
-        font-size: 1rem;
-        min-height: 45px;
+        padding: var(--spacing-2) var(--spacing-4);
+        font-size: var(--text-base);
+        min-height: 3rem;
     }
 
     .stories-title {
-        font-size: 1.5rem;
+        font-size: var(--text-xl);
     }
 
     .story-emoji {
@@ -454,7 +473,7 @@ body {
     }
 
     .story-text {
-        font-size: 1.2rem;
+        font-size: var(--text-base);
     }
 
     .illustration-emoji {
@@ -462,18 +481,18 @@ body {
     }
 
     .complete-title {
-        font-size: 2.5rem;
+        font-size: var(--text-2xl);
     }
 
     .complete-message {
-        font-size: 1.4rem;
+        font-size: var(--text-lg);
     }
 }
 
 @media (max-width: 480px) {
     .stories-grid {
         grid-template-columns: 1fr;
-        padding: 15px;
+        padding: var(--spacing-4);
     }
 
     .story-emoji {
@@ -481,7 +500,7 @@ body {
     }
 
     .story-text {
-        font-size: 1.1rem;
+        font-size: var(--text-sm);
     }
 
     .illustration-emoji {

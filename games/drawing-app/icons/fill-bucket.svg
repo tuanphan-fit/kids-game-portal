@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Bucket body -->
+  <path d="M16 20 L20 52 Q32 58 44 52 L48 20 Z" fill="#3498DB" stroke="#2980B9" stroke-width="2"/>
+  <!-- Bucket rim -->
+  <ellipse cx="32" cy="20" rx="16" ry="4" fill="#2980B9" stroke="#1A5276" stroke-width="2"/>
+  <!-- Bucket handle -->
+  <path d="M18 16 Q10 8 12 4" stroke="#5D3A1A" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M46 16 Q54 8 52 4" stroke="#5D3A1A" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- Paint pouring -->
+  <path d="M36 20 Q40 28 38 32 Q36 36 34 32 Q32 28 36 20" fill="#E74C3C"/>
+  <ellipse cx="36" cy="34" rx="4" ry="2" fill="#E74C3C"/>
+</svg>

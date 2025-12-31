@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Curved arrow -->
+  <path d="M48 16 Q28 16 28 32 Q28 48 44 48" stroke="#2C3E50" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- Arrow head -->
+  <path d="M28 16 L16 24 L28 32" fill="#2C3E50" stroke="#2C3E50" stroke-width="3" stroke-linejoin="round"/>
+  <!-- Arrow highlight -->
+  <path d="M48 16 Q28 16 28 32 Q28 48 44 48" stroke="#5DADE2" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.4"/>
+</svg>

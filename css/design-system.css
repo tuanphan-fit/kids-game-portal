@@ -1,0 +1,344 @@
+/* ========================================
+   DESIGN SYSTEM - Kids Game Portal
+   Target Audience: 3-5 years old
+   Platform: iPad (10-inch)
+   ======================================== */
+
+/* ========================================
+   1. TYPOGRAPHY SYSTEM
+   ======================================== */
+:root {
+  /* Font Stack - Professional but friendly */
+  --font-display: 'Nunito', 'Quicksand', 'Varela Round', 'Arial Rounded MT Bold', sans-serif;
+  --font-body: 'Nunito', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Font Weights */
+  --font-normal: 400;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+
+  /* Font Size Scale */
+  --text-xs: 0.875rem;    /* 14px - labels, captions */
+  --text-sm: 1rem;        /* 16px - body text */
+  --text-base: 1.125rem;  /* 18px - descriptions */
+  --text-lg: 1.5rem;      /* 24px - subtitles */
+  --text-xl: 2rem;        /* 32px - card titles */
+  --text-2xl: 2.5rem;     /* 40px - page titles */
+  --text-3xl: 3.5rem;     /* 56px - hero titles */
+}
+
+/* ========================================
+   2. COLOR PALETTE
+   ======================================== */
+:root {
+  /* ===== PRIMARY PORTAL COLORS ===== */
+  --primary-50: #E0F7FA;
+  --primary-100: #B2EBF2;
+  --primary-200: #80DEEA;
+  --primary-300: #4DD0E1;
+  --primary-400: #26C6DA;
+  --primary-500: #00BCD4;  /* Main portal color */
+  --primary-600: #00ACC1;
+  --primary-700: #0097A7;
+  --primary-800: #00838F;
+  --primary-900: #006064;
+
+  /* ===== GAME-SPECIFIC ACCENTS ===== */
+  --drawing-accent: #FF6B9D;      /* Pink */
+  --memory-accent: #FFB74D;       /* Orange */
+  --crocodile-accent: #66BB6A;    /* Green */
+  --catch-accent: #7C4DFF;        /* Purple */
+  --music-accent: #FFA726;        /* Amber */
+  --stories-accent: #EC407A;      /* Pink-Red */
+
+  /* ===== SEMANTIC COLORS ===== */
+  --success: #4CAF50;
+  --warning: #FF9800;
+  --danger: #F44336;
+  --info: #2196F3;
+
+  /* ===== NEUTRAL COLORS ===== */
+  --gray-50: #FAFAFA;
+  --gray-100: #F5F5F5;
+  --gray-200: #EEEEEE;
+  --gray-300: #E0E0E0;
+  --gray-400: #BDBDBD;
+  --gray-500: #9E9E9E;
+  --gray-600: #757575;
+  --gray-700: #616161;
+  --gray-800: #424242;
+  --gray-900: #212121;
+
+  /* ===== SOLID BACKGROUNDS (NO GRADIENTS) ===== */
+  --bg-primary: #E0F7FA;          /* Portal background */
+  --bg-card: #FFFFFF;             /* White cards */
+  --bg-surface: #FAFAFA;          /* Surface areas */
+
+  /* ===== BORDER COLORS ===== */
+  --border-light: #E0E0E0;
+  --border-medium: #BDBDBD;
+  --border-accent: #00BCD4;
+
+  /* ===== TEXT COLORS ===== */
+  --text-primary: #212121;
+  --text-secondary: #757575;
+  --text-inverse: #FFFFFF;
+  --text-accent: #00BCD4;
+}
+
+/* ========================================
+   3. SPACING SYSTEM
+   ======================================== */
+:root {
+  --spacing-1: 0.25rem;  /* 4px */
+  --spacing-2: 0.5rem;   /* 8px */
+  --spacing-3: 0.75rem;  /* 12px */
+  --spacing-4: 1rem;     /* 16px */
+  --spacing-5: 1.25rem;  /* 20px */
+  --spacing-6: 1.5rem;   /* 24px */
+  --spacing-8: 2rem;     /* 32px */
+  --spacing-10: 2.5rem;  /* 40px */
+  --spacing-12: 3rem;    /* 48px */
+}
+
+/* ========================================
+   4. BUTTON SYSTEM
+   ======================================== */
+:root {
+  --bg-button: #00BCD4;
+}
+
+.btn {
+  /* Typography */
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding: 0.875rem 1.75rem;
+  min-height: 3.5rem; /* 56px - kid-friendly touch target */
+
+  /* Appearance */
+  border: none;
+  border-radius: 1rem; /* 16px - consistently rounded */
+  background-color: var(--bg-button);
+  color: var(--text-inverse);
+
+  /* Effects */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  /* Remove animations */
+  animation: none;
+}
+
+/* Button States */
+.btn:hover {
+  background-color: color-mix(in srgb, var(--bg-button) 85%, black 15%);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  background-color: color-mix(in srgb, var(--bg-button) 70%, black 30%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(0) scale(0.98);
+}
+
+/* Button Variants */
+.btn-primary {
+  background-color: var(--primary-500);
+}
+
+.btn-accent {
+  background-color: var(--game-accent);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 3px solid var(--primary-500);
+  color: var(--primary-500);
+  box-shadow: none;
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-500);
+  color: var(--text-inverse);
+}
+
+/* Button Sizes */
+.btn-sm {
+  padding: 0.625rem 1.25rem;
+  min-height: 2.75rem;
+  font-size: var(--text-sm);
+}
+
+.btn-lg {
+  padding: 1.125rem 2.5rem;
+  min-height: 4.5rem;
+  font-size: var(--text-lg);
+}
+
+/* Back Button */
+.btn-back {
+  background-color: var(--gray-200);
+  color: var(--text-primary);
+  min-width: 6rem;
+}
+
+.btn-back:hover {
+  background-color: var(--gray-300);
+}
+
+/* ========================================
+   5. CARD SYSTEM
+   ======================================== */
+.card {
+  background: var(--bg-card);
+  border: 4px solid var(--border-accent);
+  border-radius: 1.5rem; /* 24px */
+  padding: var(--spacing-6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: var(--game-accent);
+}
+
+.card:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Game Card (Portal) */
+.game-card {
+  text-align: center;
+  cursor: pointer;
+  animation: none; /* Remove floating/bouncing */
+}
+
+.game-card__icon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-4);
+}
+
+.game-card__title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.game-card__description {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+}
+
+/* ========================================
+   6. HEADER SYSTEM
+   ======================================== */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  background: var(--bg-card);
+  padding: var(--spacing-4) var(--spacing-6);
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 4px solid var(--game-accent, var(--border-accent));
+}
+
+.header__title {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-extrabold);
+  color: var(--game-accent, var(--text-accent));
+  text-align: center;
+  flex: 1;
+  text-shadow: none; /* Remove text shadow */
+}
+
+/* Score Display */
+.score-display {
+  background: var(--game-accent, var(--primary-500));
+  padding: 0.625rem 1.25rem;
+  border-radius: 1rem;
+  min-width: 6rem;
+  text-align: center;
+}
+
+.score-display__label {
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--text-inverse);
+  display: block;
+}
+
+.score-display__value {
+  font-size: var(--text-xl);
+  font-weight: var(--font-extrabold);
+  color: var(--text-inverse);
+  display: block;
+}
+
+/* ========================================
+   7. ANIMATION POLICY
+   ======================================== */
+
+/* Animations to KEEP - Minimal and essential */
+.transition-smooth {
+  transition: all 0.2s ease;
+}
+
+.transition-medium {
+  transition: all 0.3s ease;
+}
+
+/* Victory/Game Over - SHORT only */
+@keyframes celebration {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.celebrate {
+  animation: celebration 0.3s ease-out;
+}
+
+/* ========================================
+   8. RESPONSIVE UTILITIES
+   ======================================== */
+
+/* Portrait Adjustments */
+@media (orientation: portrait) {
+  :root {
+    --text-xs: 0.875rem;
+    --text-sm: 1rem;
+    --text-base: 1.125rem;
+    --text-lg: 1.5rem;
+    --text-xl: 1.75rem;
+    --text-2xl: 2.25rem;
+    --text-3xl: 3rem;
+  }
+}
+
+/* Landscape Adjustments */
+@media (orientation: landscape) {
+  :root {
+    --text-xs: 0.875rem;
+    --text-sm: 1rem;
+    --text-base: 1.125rem;
+    --text-lg: 1.5rem;
+    --text-xl: 1.75rem;
+    --text-2xl: 2.25rem;
+    --text-3xl: 3rem;
+  }
+}

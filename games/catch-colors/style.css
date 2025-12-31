@@ -1,4 +1,13 @@
-/* Reset and iPad Optimization */
+/* ========================================
+   CATCH COLORS STYLES
+   ======================================== */
+
+/* Import Design System */
+@import url('../../css/design-system.css');
+
+/* ========================================
+   1. RESET & BASE STYLES
+   ======================================== */
 * {
     margin: 0;
     padding: 0;
@@ -15,13 +24,16 @@ html, body {
 }
 
 body {
-    font-family: 'Comic Sans MS', 'Chalkboard', 'Arial Rounded MT Bold', Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: var(--font-display);
+    background-color: #F3E5F5; /* Solid purple tint */
+    background-image: none; /* Remove gradient */
     user-select: none;
     -webkit-user-select: none;
 }
 
-/* Container */
+/* ========================================
+   2. CONTAINER
+   ======================================== */
 .catch-container {
     height: 100vh;
     width: 100vw;
@@ -31,97 +43,110 @@ body {
            env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
-/* Header */
+/* ========================================
+   3. HEADER
+   ======================================== */
 .catch-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 12px 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border: 3px solid #667eea;
+    background: var(--bg-card);
+    padding: var(--spacing-3) var(--spacing-6);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 3px solid var(--catch-accent);
     flex-shrink: 0;
-    gap: 15px;
+    gap: var(--spacing-4);
 }
 
 .btn-back {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    color: white;
+    background-color: var(--gray-200);
+    background-image: none; /* Remove gradient */
+    color: var(--text-primary);
     border: none;
-    padding: 10px 20px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border-radius: 15px;
+    padding: var(--spacing-3) var(--spacing-5);
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
+    border-radius: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: inherit;
-    min-height: 50px;
+    transition: all 0.2s ease;
+    font-family: var(--font-display);
+    min-height: 3.5rem;
     display: flex;
     align-items: center;
-    gap: 6px;
-    box-shadow: 0 3px 12px rgba(240, 147, 251, 0.3);
+    gap: var(--spacing-2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-back:hover {
+    background-color: var(--gray-300);
+    transform: translateY(-2px);
 }
 
 .btn-back:active {
-    transform: scale(0.95);
+    transform: translateY(0) scale(0.98);
 }
 
 .btn-back .arrow {
-    font-size: 1.3rem;
+    font-size: var(--text-xl);
 }
 
-/* Score Display */
+/* ========================================
+   4. SCORE DISPLAY
+   ======================================== */
 .score-display {
-    background: linear-gradient(135deg, #ffd93d 0%, #ff9a3c 100%);
-    padding: 10px 20px;
-    border-radius: 15px;
-    box-shadow: 0 3px 12px rgba(255, 217, 61, 0.3);
-    min-width: 120px;
+    background-color: var(--catch-accent);
+    background-image: none; /* Remove gradient */
+    padding: var(--spacing-3) var(--spacing-5);
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(124, 77, 255, 0.3);
+    min-width: 7.5rem;
     text-align: center;
 }
 
 .score-label {
-    color: white;
-    font-size: 0.9rem;
-    font-weight: bold;
+    color: var(--text-inverse);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
     display: block;
 }
 
 .score-value {
-    color: #FFF;
-    font-size: 2rem;
-    font-weight: bold;
+    color: #FFD700;
+    font-size: var(--text-xl);
+    font-weight: var(--font-extrabold);
     display: block;
-    text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+    text-shadow: none; /* Remove text shadow */
 }
 
-/* Target Color Display */
+/* ========================================
+   5. TARGET COLOR DISPLAY
+   ======================================== */
 .target-color-display {
     display: flex;
     align-items: center;
-    gap: 10px;
-    background: white;
-    padding: 8px 15px;
-    border-radius: 15px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    gap: var(--spacing-3);
+    background: var(--bg-card);
+    padding: var(--spacing-2) var(--spacing-4);
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 }
 
 .target-label {
-    font-weight: bold;
-    color: #667eea;
-    font-size: 1rem;
+    font-weight: var(--font-bold);
+    color: var(--catch-accent);
+    font-size: var(--text-base);
 }
 
 .target-color-box {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: white;
-    border: 4px solid #667eea;
+    background: var(--bg-card);
+    border: 4px solid var(--catch-accent);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .target-color-inner {
@@ -129,74 +154,77 @@ body {
     height: 45px;
     border-radius: 50%;
     transition: background-color 0.5s ease;
-    animation: pulse 1s ease-in-out infinite;
+    /* Remove pulse animation - keep it static */
+    animation: none;
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
-
-/* Instructions */
+/* ========================================
+   6. INSTRUCTIONS
+   ======================================== */
 .instructions {
     text-align: center;
-    padding: 15px;
+    padding: var(--spacing-4);
     background: rgba(255, 255, 255, 0.9);
-    margin: 10px 20px;
-    border-radius: 15px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    margin: var(--spacing-3) var(--spacing-6);
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
     flex-shrink: 0;
 }
 
 .instructions p {
-    font-size: 1.3rem;
-    color: #2C3E50;
-    margin: 5px 0;
-    font-weight: bold;
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    margin: var(--spacing-2) 0;
+    font-weight: var(--font-semibold);
 }
 
 .sub-text {
-    font-size: 1rem !important;
-    color: #7F8C8D !important;
+    font-size: var(--text-base) !important;
+    color: var(--text-secondary) !important;
 }
 
 .color-name {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
     text-transform: uppercase;
 }
 
-/* Game Area */
+/* ========================================
+   7. GAME AREA
+   ======================================== */
 .game-area {
     flex: 1;
     position: relative;
-    background: linear-gradient(180deg, #87CEEB 0%, #E0F7FA 100%);
-    border-radius: 20px;
-    margin: 10px 20px 20px;
+    background-color: #E3F2FD; /* Solid blue sky */
+    background-image: none; /* Remove gradient */
+    border-radius: 1.5rem;
+    margin: var(--spacing-3) var(--spacing-6) var(--spacing-6);
     overflow: hidden;
     box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Falling Ball */
+/* ========================================
+   8. FALLING BALLS
+   ======================================== */
 .falling-ball {
     position: absolute;
     width: 80px;
     height: 80px;
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3), inset 0 -10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2), inset 0 -8px 16px rgba(0, 0, 0, 0.15);
     transition: transform 0.1s ease;
-    animation: wobble 0.5s ease-in-out infinite;
+    animation: none; /* Remove wobble animation */
 }
 
 .falling-ball::before {
     content: '';
     position: absolute;
-    top: 15px;
-    left: 20px;
-    width: 25px;
-    height: 15px;
-    background: rgba(255, 255, 255, 0.6);
+    top: 12px;
+    left: 16px;
+    width: 20px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
 }
 
@@ -212,11 +240,7 @@ body {
     animation: missed 0.3s ease-out forwards;
 }
 
-@keyframes wobble {
-    0%, 100% { transform: rotate(-5deg); }
-    50% { transform: rotate(5deg); }
-}
-
+/* Keep these short animations - essential for gameplay */
 @keyframes caught {
     0% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1.5); opacity: 0.5; }
@@ -228,13 +252,15 @@ body {
     100% { transform: translateY(100px); opacity: 0; }
 }
 
-/* Score Pop Animation */
+/* ========================================
+   9. SCORE POP
+   ======================================== */
 .score-pop {
     position: absolute;
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
     color: #FFD700;
-    text-shadow: 2px 2px 0 #000;
+    text-shadow: none; /* Remove text shadow */
     pointer-events: none;
     animation: scoreFloat 1s ease-out forwards;
     z-index: 100;
@@ -251,56 +277,67 @@ body {
     }
 }
 
-/* Start Screen */
+/* ========================================
+   10. START SCREEN
+   ======================================== */
 .start-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-color: var(--catch-accent);
+    background-image: none; /* Remove gradient */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    padding: 20px;
+    padding: var(--spacing-6);
 }
 
 .game-title {
-    font-size: 4rem;
-    color: white;
-    text-shadow: 4px 4px 0 #FFD700;
-    margin-bottom: 20px;
-    animation: bounceIn 0.5s ease-out;
+    font-size: var(--text-3xl);
+    color: var(--text-inverse);
+    text-shadow: none; /* Remove text shadow */
+    margin-bottom: var(--spacing-6);
+    animation: scaleIn 0.3s ease-out;
 }
 
 .game-subtitle {
-    font-size: 2rem;
-    color: white;
-    margin-bottom: 40px;
-    text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+    font-size: var(--text-2xl);
+    color: var(--text-inverse);
+    margin-bottom: var(--spacing-12);
+    text-shadow: none; /* Remove text shadow */
 }
 
 .btn-start {
-    background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-    color: white;
+    background-color: var(--success);
+    background-image: none; /* Remove gradient */
+    color: var(--text-inverse);
     border: none;
-    padding: 25px 60px;
-    font-size: 2rem;
-    font-weight: bold;
-    border-radius: 25px;
+    padding: var(--spacing-8) var(--spacing-16);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    border-radius: 1.5rem;
     cursor: pointer;
-    box-shadow: 0 8px 25px rgba(86, 171, 47, 0.4);
-    animation: pulse 2s ease-in-out infinite;
-    font-family: inherit;
+    box-shadow: 0 8px 16px rgba(76, 175, 80, 0.3);
+    animation: none; /* Remove pulse animation */
+    font-family: var(--font-display);
+}
+
+.btn-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(76, 175, 80, 0.4);
 }
 
 .btn-start:active {
-    transform: scale(0.95);
+    transform: translateY(0) scale(0.98);
 }
 
-/* Game Over Screen */
+/* ========================================
+   11. GAME OVER SCREEN
+   ======================================== */
 .game-over-screen {
     position: fixed;
     top: 0;
@@ -313,43 +350,40 @@ body {
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    padding: 20px;
+    padding: var(--spacing-6);
 }
 
 .game-over-title {
-    font-size: 4rem;
+    font-size: var(--text-3xl);
     color: #FFD700;
-    text-shadow: 4px 4px 0 #FF6B6B;
-    margin-bottom: 30px;
-    animation: bounceIn 0.5s ease-out;
+    text-shadow: none; /* Remove text shadow */
+    margin-bottom: var(--spacing-10);
+    animation: scaleIn 0.3s ease-out;
 }
 
 .final-score {
-    font-size: 2.5rem;
-    color: white;
-    margin-bottom: 20px;
+    font-size: var(--text-2xl);
+    color: var(--text-inverse);
+    margin-bottom: var(--spacing-6);
 }
 
 .final-score span {
     color: #FFD700;
-    font-size: 3rem;
-    font-weight: bold;
+    font-size: var(--text-3xl);
+    font-weight: var(--font-extrabold);
 }
 
 .message {
-    font-size: 2rem;
-    color: #87CEEB;
-    margin-bottom: 40px;
+    font-size: var(--text-2xl);
+    color: var(--catch-accent);
+    margin-bottom: var(--spacing-12);
     text-align: center;
 }
 
-@keyframes bounceIn {
+@keyframes scaleIn {
     0% {
-        transform: scale(0);
+        transform: scale(0.8);
         opacity: 0;
-    }
-    50% {
-        transform: scale(1.2);
     }
     100% {
         transform: scale(1);
@@ -357,19 +391,21 @@ body {
     }
 }
 
-/* Responsive Design */
+/* ========================================
+   12. RESPONSIVE DESIGN
+   ======================================== */
 @media (orientation: portrait) {
     .game-title {
-        font-size: 3rem;
+        font-size: var(--text-2xl);
     }
 
     .game-subtitle {
-        font-size: 1.5rem;
+        font-size: var(--text-xl);
     }
 
     .btn-start {
-        font-size: 1.5rem;
-        padding: 20px 40px;
+        font-size: var(--text-xl);
+        padding: var(--spacing-6) var(--spacing-12);
     }
 
     .falling-ball {
@@ -381,7 +417,7 @@ body {
 @media (orientation: landscape) {
     .catch-header {
         flex-wrap: wrap;
-        gap: 10px;
+        gap: var(--spacing-3);
     }
 
     .target-color-display {
@@ -389,24 +425,24 @@ body {
     }
 
     .game-area {
-        margin: 5px 10px 10px;
+        margin: var(--spacing-2) var(--spacing-3) var(--spacing-4);
     }
 }
 
 @media (max-width: 768px) {
     .catch-header {
-        padding: 8px 12px;
+        padding: var(--spacing-2) var(--spacing-3);
     }
 
     .btn-back {
-        padding: 8px 15px;
-        font-size: 1rem;
-        min-height: 45px;
+        padding: var(--spacing-2) var(--spacing-4);
+        font-size: var(--text-base);
+        min-height: 3rem;
     }
 
     .score-display {
-        min-width: 80px;
-        padding: 8px 12px;
+        min-width: 5rem;
+        padding: var(--spacing-2) var(--spacing-3);
     }
 
     .target-color-box {

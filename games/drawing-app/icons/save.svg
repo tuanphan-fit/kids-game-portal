@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Floppy disk body -->
+  <rect x="12" y="8" width="40" height="48" rx="3" fill="#34495E" stroke="#2C3E50" stroke-width="2"/>
+  <!-- Metal shutter -->
+  <rect x="20" y="8" width="24" height="16" fill="#95A5A6" stroke="#7F8C8D" stroke-width="1"/>
+  <!-- Label area -->
+  <rect x="20" y="28" width="24" height="24" fill="#ECF0F1" stroke="#BDC3C7" stroke-width="1"/>
+  <!-- Label lines -->
+  <line x1="24" y1="34" x2="40" y2="34" stroke="#BDC3C7" stroke-width="2" stroke-linecap="round"/>
+  <line x1="24" y1="40" x2="36" y2="40" stroke="#BDC3C7" stroke-width="2" stroke-linecap="round"/>
+  <line x1="24" y1="46" x2="38" y2="46" stroke="#BDC3C7" stroke-width="2" stroke-linecap="round"/>
+  <!-- Write protect tab -->
+  <rect x="42" y="12" width="6" height="8" fill="#E74C3C"/>
+</svg>

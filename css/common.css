@@ -1,4 +1,13 @@
-/* Reset and Base Styles */
+/* ========================================
+   COMMON STYLES - Kids Game Portal
+   ======================================== */
+
+/* Import Design System */
+@import url('design-system.css');
+
+/* ========================================
+   1. RESET & BASE STYLES
+   ======================================== */
 * {
     margin: 0;
     padding: 0;
@@ -6,8 +15,9 @@
 }
 
 body {
-    font-family: 'Comic Sans MS', 'Chalkboard', 'Arial Rounded MT Bold', Arial, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    font-family: var(--font-display);
+    background-color: var(--bg-primary);
+    background-image: none; /* Remove gradient */
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -15,258 +25,212 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: var(--spacing-8);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/* Header */
+/* ========================================
+   2. HEADER
+   ======================================== */
 .header {
     text-align: center;
-    padding: 30px 20px;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 30px;
-    margin-bottom: 40px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    border: 4px solid #FFD700;
+    padding: var(--spacing-12) var(--spacing-8);
+    background: var(--bg-card);
+    border-radius: 2rem;
+    margin-bottom: var(--spacing-10);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 4px solid var(--primary-500);
 }
 
 .title {
-    font-size: 3.5rem;
-    color: #FF6B6B;
-    text-shadow: 3px 3px 0 #FFD700, 6px 6px 0 rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-    animation: bounce 2s ease-in-out infinite;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    font-size: var(--text-3xl);
+    color: var(--primary-700);
+    text-shadow: none; /* Remove text shadow */
+    margin-bottom: var(--spacing-3);
+    animation: none; /* Remove bounce animation */
 }
 
 .subtitle {
-    font-size: 1.5rem;
-    color: #4ECDC4;
-    font-weight: bold;
+    font-size: var(--text-lg);
+    color: var(--primary-600);
+    font-weight: var(--font-semibold);
 }
 
-/* Games Grid */
+/* ========================================
+   3. GAMES GRID
+   ======================================== */
 .games-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-bottom: 40px;
+    gap: var(--spacing-8);
+    margin-bottom: var(--spacing-10);
     flex: 1;
 }
 
-/* Game Cards */
+/* ========================================
+   4. GAME CARDS
+   ======================================== */
 .game-card {
-    background: white;
-    border-radius: 25px;
-    padding: 30px 20px;
+    background: var(--bg-card);
+    border: 4px solid var(--primary-400);
+    border-radius: 1.5rem;
+    padding: var(--spacing-10) var(--spacing-6);
     text-align: center;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    border: 5px solid transparent;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     position: relative;
     overflow: hidden;
+    animation: none; /* Remove animations */
 }
 
 .game-card.active {
-    border-color: #FFD700;
+    border-color: var(--primary-400);
     cursor: pointer;
 }
 
 .game-card.active:hover {
-    transform: translateY(-10px) scale(1.05);
-    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
-    border-color: #FF6B6B;
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(0, 188, 212, 0.15);
+    border-color: var(--primary-600);
 }
 
 .game-card.coming-soon {
     opacity: 0.6;
     cursor: not-allowed;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background-color: var(--gray-100);
 }
 
+/* Remove shimmer effect */
 .game-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        45deg,
-        transparent,
-        transparent 40%,
-        rgba(255, 215, 0, 0.1) 50%,
-        transparent 60%,
-        transparent
-    );
-    transform: rotate(45deg);
-    animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    display: none;
 }
 
 .game-icon {
     font-size: 5rem;
-    margin-bottom: 15px;
+    margin-bottom: var(--spacing-4);
     display: inline-block;
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-15px) rotate(5deg); }
+    animation: none; /* Remove float animation */
 }
 
 .game-title {
-    font-size: 1.8rem;
-    color: #2C3E50;
-    margin-bottom: 10px;
-    font-weight: bold;
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-3);
+    font-weight: var(--font-bold);
 }
 
 .game-description {
-    font-size: 1.2rem;
-    color: #7F8C8D;
-    font-weight: 500;
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    font-weight: var(--font-normal);
 }
 
-/* Footer */
+/* ========================================
+   5. FOOTER
+   ======================================== */
 .footer {
     text-align: center;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    margin-top: 20px;
+    padding: var(--spacing-6);
+    background: var(--bg-card);
+    border-radius: 1.5rem;
+    margin-top: var(--spacing-6);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .footer p {
-    font-size: 1.3rem;
-    color: #E91E63;
-    font-weight: bold;
+    font-size: var(--text-lg);
+    color: var(--stories-accent);
+    font-weight: var(--font-semibold);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .title {
-        font-size: 2.5rem;
-    }
-
-    .subtitle {
-        font-size: 1.2rem;
-    }
-
-    .games-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-    }
-
-    .game-icon {
-        font-size: 4rem;
-    }
-
-    .game-title {
-        font-size: 1.5rem;
-    }
-
-    .game-description {
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .title {
-        font-size: 2rem;
-    }
-
-    .games-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .game-card {
-        padding: 25px 15px;
-    }
-}
-
-/* Button Styles (for use in games) */
+/* ========================================
+   6. BUTTON STYLES (for games)
+   ======================================== */
 .btn {
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    font-weight: bold;
+    padding: var(--spacing-4) var(--spacing-8);
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
     border: none;
-    border-radius: 15px;
+    border-radius: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: inherit;
-    min-height: 60px;
-    min-width: 120px;
+    transition: all 0.2s ease;
+    font-family: var(--font-display);
+    min-height: 3.5rem;
+    min-width: 7.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: none;
 }
 
-.btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
-}
-
-.btn-success {
-    background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-    color: white;
-    box-shadow: 0 5px 15px rgba(86, 171, 47, 0.4);
-}
-
-.btn-success:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(86, 171, 47, 0.6);
-}
-
-.btn-danger {
-    background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
-    color: white;
-    box-shadow: 0 5px 15px rgba(235, 51, 73, 0.4);
-}
-
-.btn-danger:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(235, 51, 73, 0.6);
-}
-
-.btn-warning {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    color: white;
-    box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
-}
-
-.btn-warning:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(245, 87, 108, 0.6);
+.btn:hover {
+    transform: translateY(-2px);
 }
 
 .btn:active {
-    transform: translateY(0);
+    transform: translateY(0) scale(0.98);
 }
 
-/* Tap to Start Overlay (for iPad fullscreen) */
+.btn-primary {
+    background-color: var(--primary-500);
+    background-image: none; /* Remove gradient */
+    color: var(--text-inverse);
+    box-shadow: 0 4px 12px rgba(0, 188, 212, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-600);
+    box-shadow: 0 6px 16px rgba(0, 188, 212, 0.4);
+}
+
+.btn-success {
+    background-color: var(--success);
+    background-image: none; /* Remove gradient */
+    color: var(--text-inverse);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.btn-success:hover {
+    background-color: color-mix(in srgb, var(--success) 85%, black 15%);
+    box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    background-image: none; /* Remove gradient */
+    color: var(--text-inverse);
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+}
+
+.btn-danger:hover {
+    background-color: color-mix(in srgb, var(--danger) 85%, black 15%);
+    box-shadow: 0 6px 16px rgba(244, 67, 54, 0.4);
+}
+
+.btn-warning {
+    background-color: var(--warning);
+    background-image: none; /* Remove gradient */
+    color: var(--text-inverse);
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+}
+
+.btn-warning:hover {
+    background-color: color-mix(in srgb, var(--warning) 85%, black 15%);
+    box-shadow: 0 6px 16px rgba(255, 152, 0, 0.4);
+}
+
+/* ========================================
+   7. TAP TO START OVERLAY (for iPad fullscreen)
+   ======================================== */
 .tap-to-start-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-color: var(--primary-600);
+    background-image: none; /* Remove gradient */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -276,37 +240,75 @@ body {
 
 .tap-content {
     text-align: center;
-    animation: pulse 2s ease-in-out infinite;
+    /* Remove pulse animation - keep it subtle */
+    animation: none;
 }
 
 .tap-icon {
     font-size: 8rem;
-    animation: tapAnimation 1s ease-in-out infinite;
+    /* Remove tapAnimation - keep it static */
+    animation: none;
 }
 
 .tap-title {
     font-size: 3rem;
-    color: white;
-    text-shadow: 3px 3px 0 #FFD700;
-    margin: 20px 0;
+    color: var(--text-inverse);
+    text-shadow: none; /* Remove text shadow */
+    margin: var(--spacing-6) 0;
+    font-weight: var(--font-extrabold);
 }
 
 .tap-subtitle {
     font-size: 1.5rem;
     color: rgba(255, 255, 255, 0.9);
+    font-weight: var(--font-normal);
 }
 
-@keyframes tapAnimation {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
+/* ========================================
+   8. RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 768px) {
+    .title {
+        font-size: var(--text-2xl);
+    }
+
+    .subtitle {
+        font-size: var(--text-base);
+    }
+
+    .games-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: var(--spacing-6);
+    }
+
+    .game-icon {
+        font-size: 4rem;
+    }
+
+    .game-title {
+        font-size: var(--text-lg);
+    }
+
+    .game-description {
+        font-size: var(--text-sm);
+    }
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+@media (max-width: 480px) {
+    .title {
+        font-size: var(--text-xl);
+    }
+
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .game-card {
+        padding: var(--spacing-8) var(--spacing-5);
+    }
 }
 
-/* Responsive adjustments for tap overlay */
+/* Portrait adjustments */
 @media (orientation: portrait) {
     .tap-icon {
         font-size: 6rem;
@@ -321,6 +323,7 @@ body {
     }
 }
 
+/* Landscape adjustments */
 @media (orientation: landscape) {
     .tap-icon {
         font-size: 5rem;
@@ -335,12 +338,14 @@ body {
     }
 }
 
-/* iOS Instructions Styles */
+/* ========================================
+   9. iOS INSTRUCTIONS STYLES
+   ======================================== */
 .tap-instructions {
     background: rgba(255, 255, 255, 0.15);
-    border-radius: 20px;
-    padding: 30px;
-    margin-top: 30px;
+    border-radius: 1.5rem;
+    padding: var(--spacing-10);
+    margin-top: var(--spacing-10);
     backdrop-filter: blur(10px);
     max-width: 500px;
     margin-left: auto;
@@ -349,29 +354,29 @@ body {
 
 .tap-step {
     font-size: 1.4rem;
-    color: white;
-    margin: 15px 0;
+    color: var(--text-inverse);
+    margin: var(--spacing-4) 0;
     text-align: left;
     line-height: 1.6;
 }
 
 .tap-step strong {
     color: #FFD700;
-    font-weight: bold;
+    font-weight: var(--font-bold);
 }
 
 .tap-or {
     font-size: 1.5rem;
     color: #FFD700;
-    margin: 20px 0;
-    font-weight: bold;
+    margin: var(--spacing-6) 0;
+    font-weight: var(--font-bold);
 }
 
 /* Portrait adjustments for instructions */
 @media (orientation: portrait) {
     .tap-instructions {
-        padding: 20px;
-        margin-top: 20px;
+        padding: var(--spacing-6);
+        margin-top: var(--spacing-6);
     }
 
     .tap-step {
@@ -386,7 +391,7 @@ body {
 /* Landscape adjustments for instructions */
 @media (orientation: landscape) {
     .tap-instructions {
-        padding: 25px;
+        padding: var(--spacing-8);
         max-width: 600px;
     }
 
@@ -394,4 +399,3 @@ body {
         font-size: 1.2rem;
     }
 }
-

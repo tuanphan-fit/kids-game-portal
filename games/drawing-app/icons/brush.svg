@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Brush handle -->
+  <rect x="20" y="32" width="24" height="28" rx="3" fill="#8B4513" stroke="#5D3A1A" stroke-width="2"/>
+  <!-- Metal ferrule -->
+  <rect x="20" y="28" width="24" height="6" fill="#C0C0C0" stroke="#808080" stroke-width="1"/>
+  <!-- Brush bristles -->
+  <path d="M20 28 L20 18 Q32 8 44 18 L44 28 Z" fill="#2C3E50" stroke="#1A252F" stroke-width="1"/>
+  <!-- Paint on bristles -->
+  <path d="M22 26 L22 19 Q32 11 42 19 L42 26 Z" fill="#E74C3C"/>
+</svg>
