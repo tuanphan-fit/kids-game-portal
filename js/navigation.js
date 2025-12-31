@@ -1,5 +1,5 @@
 // Game Navigation Utility
-// Shared module for all games to handle fullscreen and navigation consistently
+// Shared module for all games to handle navigation consistently
 
 const GameNavigation = {
     // Navigate to portal without creating history entry
@@ -8,48 +8,46 @@ const GameNavigation = {
         window.location.replace('../../index.html');
     },
 
-    // Request fullscreen (Safari-compatible)
-    // Works across different browsers and iOS Safari variants
-    requestFullscreen: function() {
-        const elem = document.documentElement;
-
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.webkitRequestFullscreen) {
-            elem.webkitRequestFullscreen();
-        } else if (elem.webkitRequestFullScreen) {
-            elem.webkitRequestFullScreen(); // iOS Safari (note: capital S)
-        } else if (elem.mozRequestFullScreen) {
-            elem.mozRequestFullScreen();
-        } else if (elem.msRequestFullscreen) {
-            elem.msRequestFullscreen();
-        }
+    // Check if running on iOS Safari
+    isIOS: function() {
+        return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     },
 
-    // Exit fullscreen
-    exitFullscreen: function() {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        } else if (document.webkitCancelFullScreen) {
-            document.webkitCancelFullScreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-        }
+    // Check if already in standalone mode (added to home screen)
+    isStandalone: function() {
+        return window.navigator.standalone === true;
     },
 
-    // Handle first user interaction for fullscreen
-    // Shows "Tap to Start" overlay, then enters fullscreen on first tap/click
+    // Handle first user interaction
+    // Shows "Tap to Start" overlay with iOS-specific instructions
     handleFirstInteraction: function(callback) {
-        const handler = function() {
-            // Request fullscreen
-            GameNavigation.requestFullscreen();
+        const isIOS = this.isIOS();
+        const isStandalone = this.isStandalone();
 
+        // Update overlay text based on platform
+        const overlay = document.getElementById('tapToStartOverlay');
+        if (overlay) {
+            if (isIOS && !isStandalone) {
+                // Show iOS Add to Home Screen instructions
+                overlay.innerHTML = `
+                    <div class="tap-content">
+                        <div class="tap-icon">📱</div>
+                        <h1 class="tap-title">Add to Home Screen!</h1>
+                        <div class="tap-instructions">
+                            <p class="tap-step">1. Tap the <strong>Share</strong> button</p>
+                            <p class="tap-step">2. Scroll down and tap <strong>"Add to Home Screen"</strong></p>
+                            <p class="tap-step">3. Tap <strong>"Add"</strong> in the top right</p>
+                            <p class="tap-or">OR</p>
+                            <p class="tap-subtitle">Tap anywhere to play in browser</p>
+                        </div>
+                    </div>
+                `;
+            }
+            // For standalone mode or other platforms, keep default "Tap to Start" message
+        }
+
+        const handler = function() {
             // Hide the overlay
-            const overlay = document.getElementById('tapToStartOverlay');
             if (overlay) {
                 overlay.style.display = 'none';
             }
@@ -65,14 +63,6 @@ const GameNavigation = {
         // Listen for both touch and click events (only triggers once)
         document.addEventListener('touchstart', handler, { once: true });
         document.addEventListener('click', handler, { once: true });
-    },
-
-    // Check if currently in fullscreen mode
-    isFullscreen: function() {
-        return !!(document.fullscreenElement ||
-            document.webkitFullscreenElement ||
-            document.webkitCurrentFullScreenElement ||
-            document.mozFullScreenElement ||
-            document.msFullscreenElement);
     }
 };
+

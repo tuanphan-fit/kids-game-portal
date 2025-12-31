@@ -2,7 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <!-- iOS Fullscreen Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Game World">
+
     <title>My Game World</title>
     <link rel="stylesheet" href="css/common.css">
 </head>
@@ -62,7 +68,25 @@
         </footer>
     </div>
 
+    <!-- Tap to Start Overlay -->
+    <div id="tapToStartOverlay" class="tap-to-start-overlay">
+        <div class="tap-content">
+            <div class="tap-icon">👆</div>
+            <h1 class="tap-title">Tap to Start!</h1>
+            <p class="tap-subtitle">Tap anywhere to play</p>
+        </div>
+    </div>
+
+    <script src="js/navigation.js"></script>
     <script>
+        // Initialize first interaction handler
+        document.addEventListener('DOMContentLoaded', function() {
+            GameNavigation.handleFirstInteraction(function() {
+                // Initialize card animations after user interaction
+                initCardAnimations();
+            });
+        });
+
         function navigateToGame(gameName) {
             if (gameName === 'drawing-app') {
                 window.location.href = 'games/drawing-app/index.html';
@@ -86,14 +110,16 @@
         }
 
         // Add click animation
-        document.querySelectorAll('.game-card.active').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'scale(1.05) rotate(2deg)';
+        function initCardAnimations() {
+            document.querySelectorAll('.game-card.active').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'scale(1.05) rotate(2deg)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'scale(1) rotate(0deg)';
+                });
             });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'scale(1) rotate(0deg)';
-            });
-        });
+        }
     </script>
 </body>
 </html>

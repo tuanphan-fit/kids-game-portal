@@ -334,3 +334,64 @@ body {
         font-size: 1.3rem;
     }
 }
+
+/* iOS Instructions Styles */
+.tap-instructions {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 30px;
+    backdrop-filter: blur(10px);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tap-step {
+    font-size: 1.4rem;
+    color: white;
+    margin: 15px 0;
+    text-align: left;
+    line-height: 1.6;
+}
+
+.tap-step strong {
+    color: #FFD700;
+    font-weight: bold;
+}
+
+.tap-or {
+    font-size: 1.5rem;
+    color: #FFD700;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+/* Portrait adjustments for instructions */
+@media (orientation: portrait) {
+    .tap-instructions {
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .tap-step {
+        font-size: 1.1rem;
+    }
+
+    .tap-or {
+        font-size: 1.3rem;
+    }
+}
+
+/* Landscape adjustments for instructions */
+@media (orientation: landscape) {
+    .tap-instructions {
+        padding: 25px;
+        max-width: 600px;
+    }
+
+    .tap-step {
+        font-size: 1.2rem;
+    }
+}
+
