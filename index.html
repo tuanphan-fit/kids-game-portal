@@ -35,22 +35,25 @@
                 <p class="game-description">Match the pairs!</p>
             </div>
 
-            <div class="game-card coming-soon">
+            <!-- Catch Colors - Active Game -->
+            <div class="game-card active" data-game="catch-colors" onclick="navigateToGame('catch-colors')">
                 <div class="game-icon">🎯</div>
                 <h2 class="game-title">Catch Colors</h2>
-                <p class="game-description">Coming Soon!</p>
+                <p class="game-description">Match the colors!</p>
             </div>
 
-            <div class="game-card coming-soon">
+            <!-- Music Time - Active Game -->
+            <div class="game-card active" data-game="music-time" onclick="navigateToGame('music-time')">
                 <div class="game-icon">🎹</div>
                 <h2 class="game-title">Music Time</h2>
-                <p class="game-description">Coming Soon!</p>
+                <p class="game-description">Play piano & animals!</p>
             </div>
 
-            <div class="game-card coming-soon">
+            <!-- Interactive Stories - Active Game -->
+            <div class="game-card active" data-game="interactive-stories" onclick="navigateToGame('interactive-stories')">
                 <div class="game-icon">📖</div>
                 <h2 class="game-title">Stories</h2>
-                <p class="game-description">Coming Soon!</p>
+                <p class="game-description">Read fun stories!</p>
             </div>
         </main>
 
@@ -67,6 +70,12 @@
                 window.location.href = 'games/memory-game/index.html';
             } else if (gameName === 'crocodile-game') {
                 window.location.href = 'games/crocodile-game/index.html';
+            } else if (gameName === 'catch-colors') {
+                window.location.href = 'games/catch-colors/index.html';
+            } else if (gameName === 'music-time') {
+                window.location.href = 'games/music-time/index.html';
+            } else if (gameName === 'interactive-stories') {
+                window.location.href = 'games/interactive-stories/index.html';
             }
         }
 

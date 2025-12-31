@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Catch Colors - My Game World</title>
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="catch-container">
+        <!-- Header -->
+        <header class="catch-header">
+            <button class="btn-back" onclick="goBack()">
+                <span class="arrow">←</span> Back
+            </button>
+            <div class="score-display">
+                <span class="score-label">Score:</span>
+                <span class="score-value" id="score">0</span>
+            </div>
+            <div class="target-color-display">
+                <span class="target-label">Catch:</span>
+                <div class="target-color-box" id="targetColorBox">
+                    <div class="target-color-inner" id="targetColor"></div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Instructions -->
+        <div class="instructions" id="instructions">
+            <p>🎯 Catch the <span id="colorName" class="color-name">RED</span> balls!</p>
+            <p class="sub-text">Tap or touch to catch!</p>
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-area" id="gameArea">
+            <!-- Falling balls will be generated here -->
+        </div>
+
+        <!-- Start Screen -->
+        <div class="start-screen" id="startScreen">
+            <h1 class="game-title">🎯 Catch Colors!</h1>
+            <p class="game-subtitle">Catch the right color balls!</p>
+            <button class="btn-start" onclick="startGame()">
+                🎮 Start Game
+            </button>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div class="game-over-screen" id="gameOverScreen" style="display: none;">
+            <h1 class="game-over-title">Game Over!</h1>
+            <p class="final-score">Your Score: <span id="finalScore">0</span></p>
+            <div class="message" id="gameMessage"></div>
+            <button class="btn-start" onclick="startGame()">
+                🔄 Play Again
+            </button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
