@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize fullscreen on first interaction
     GameNavigation.handleFirstInteraction(function() {
         initAudio();
+        initVisualization();
         initPianoKeys();
         initAnimalKeys();
         setMode('piano');
@@ -13,6 +14,10 @@ document.addEventListener('DOMContentLoaded', function() {
 let audioContext = null;
 let currentMode = 'piano';
 let isPlayingDemo = false;
+
+// Sound visualization
+let visBars = [];
+const NUM_VIS_BARS = 8;
 
 // Piano notes configuration
 const pianoKeys = [
@@ -52,6 +57,54 @@ function resumeAudio() {
     if (audioContext && audioContext.state === 'suspended') {
         audioContext.resume();
     }
+}
+
+// Initialize sound visualization bars
+function initVisualization() {
+    const container = document.getElementById('soundVisualization');
+    container.innerHTML = '';
+    visBars = [];
+
+    for (let i = 0; i < NUM_VIS_BARS; i++) {
+        const bar = document.createElement('div');
+        bar.className = 'vis-bar';
+        bar.style.height = '8px';
+        bar.style.setProperty('--bar-hue', '200');
+        container.appendChild(bar);
+        visBars.push(bar);
+    }
+}
+
+// Animate visualization bars based on frequency
+function animateVisualization(frequency) {
+    if (!visBars.length) return;
+
+    // Calculate color hue based on frequency (lower = blue, higher = red)
+    // Map 200-800 Hz to 200-360 hue
+    const hue = 200 + ((frequency - 200) / 600) * 160;
+
+    // Calculate bar heights based on frequency
+    // Higher frequency = more energetic pattern
+    const baseHeight = 8;
+    const maxHeight = 70;
+    const energy = (frequency - 200) / 600; // 0 to 1
+
+    visBars.forEach((bar, index) => {
+        // Create wave pattern with some randomness
+        const waveOffset = Math.sin((index / NUM_VIS_BARS) * Math.PI * 2 + Date.now() / 100) * 0.3;
+        const randomFactor = 0.5 + Math.random() * 0.5;
+        const height = baseHeight + (maxHeight - baseHeight) * (energy + waveOffset) * randomFactor;
+
+        bar.style.height = `${Math.max(baseHeight, Math.min(maxHeight, height))}px`;
+        bar.style.setProperty('--bar-hue', hue.toString());
+        bar.classList.add('active');
+
+        // Fade out after delay
+        setTimeout(() => {
+            bar.classList.remove('active');
+            bar.style.height = `${baseHeight}px`;
+        }, 300 + index * 50);
+    });
 }
 
 // Initialize piano keys
@@ -188,6 +241,9 @@ function playPianoNote(frequency, noteName, keyElement) {
 
     const now = audioContext.currentTime;
 
+    // Animate visualization
+    animateVisualization(frequency);
+
     // Create oscillator for the note
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
@@ -207,9 +263,27 @@ function playPianoNote(frequency, noteName, keyElement) {
     oscillator.start(now);
     oscillator.stop(now + 1);
 
-    // Visual feedback
+    // Spring animation for key press (quick press down, slow spring back)
     keyElement.classList.add('pressed');
-    setTimeout(() => keyElement.classList.remove('pressed'), 200);
+
+    // Animate spring back with bounce
+    const pressDuration = 80; // Quick press
+    const returnDuration = 300; // Slow spring back
+
+    setTimeout(() => {
+        keyElement.classList.remove('pressed');
+
+        // Spring bounce effect using CSS transition
+        keyElement.style.transition = `transform ${returnDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1)`;
+        keyElement.style.transform = 'translateY(-2px) scale(1.02)';
+
+        setTimeout(() => {
+            keyElement.style.transform = '';
+            setTimeout(() => {
+                keyElement.style.transition = '';
+            }, returnDuration);
+        }, 50);
+    }, pressDuration);
 
     // Update display
     updateNoteDisplay('🎵', noteName);
@@ -231,6 +305,9 @@ function playPianoNote(frequency, noteName, keyElement) {
 function playAnimalSound(animal, keyElement) {
     if (!audioContext) return;
     resumeAudio();
+
+    // Animate visualization based on animal's base frequency
+    animateVisualization(animal.baseFreq);
 
     const now = audioContext.currentTime;
 
@@ -261,9 +338,27 @@ function playAnimalSound(animal, keyElement) {
             break;
     }
 
-    // Visual feedback
+    // Visual feedback with spring animation
     keyElement.classList.add('pressed');
-    setTimeout(() => keyElement.classList.remove('pressed'), 300);
+
+    // Animate spring back with bounce
+    const pressDuration = 80; // Quick press
+    const returnDuration = 300; // Slow spring back
+
+    setTimeout(() => {
+        keyElement.classList.remove('pressed');
+
+        // Spring bounce effect using CSS transition
+        keyElement.style.transition = `transform ${returnDuration}ms cubic-bezier(0.34, 1.56, 0.64, 1)`;
+        keyElement.style.transform = 'translateY(-2px) scale(1.02)';
+
+        setTimeout(() => {
+            keyElement.style.transform = '';
+            setTimeout(() => {
+                keyElement.style.transition = '';
+            }, returnDuration);
+        }, 50);
+    }, pressDuration);
 
     // Update display
     updateNoteDisplay(animal.emoji, animal.sound);

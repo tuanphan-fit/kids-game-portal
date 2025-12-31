@@ -16,6 +16,16 @@ const gameState = {
     isProcessing: false
 };
 
+// Physics: Particle system for water splash
+let splashParticles = null;
+
+// Initialize physics
+function initPhysics() {
+    if (!splashParticles) {
+        splashParticles = new Physics.ParticleSystem(document.body, 30);
+    }
+}
+
 // Audio context
 let audioContext = null;
 
@@ -117,6 +127,8 @@ function playChompSound() {
 
 // Initialize game
 function initGame() {
+    initPhysics(); // Initialize physics engine
+
     // Reset state
     gameState.teeth = [];
     gameState.soreToothIndex = Math.floor(Math.random() * TOTAL_TEETH);
@@ -259,13 +271,77 @@ function triggerSnap() {
     }, 500);
 }
 
-// Snap jaws animation
+// Snap jaws animation with spring physics
 function snapJaws() {
     const upperJaw = document.getElementById('upperJaw');
     const lowerJaw = document.getElementById('lowerJaw');
 
-    upperJaw.classList.add('snapping');
-    lowerJaw.classList.add('snapping');
+    // Spring physics parameters
+    const stiffness = 0.3;
+    const damping = 0.7;
+    const targetRotation = 40;
+
+    let upperRotation = 0;
+    let lowerRotation = 0;
+    let upperVelocity = 15; // Initial snap velocity
+    let lowerVelocity = 15;
+
+    const startTime = Date.now();
+    const duration = 500; // ms
+
+    function animate() {
+        const elapsed = Date.now() - startTime;
+
+        if (elapsed >= duration) {
+            // Set final positions
+            upperJaw.style.transform = `rotate(${-targetRotation * 0.9}deg)`;
+            lowerJaw.style.transform = `rotate(${targetRotation * 0.9}deg)`;
+            return;
+        }
+
+        // Spring physics for upper jaw
+        const upperForce = (targetRotation - upperRotation) * stiffness;
+        upperVelocity += upperForce;
+        upperVelocity *= damping;
+        upperRotation += upperVelocity;
+
+        // Spring physics for lower jaw
+        const lowerForce = (targetRotation - lowerRotation) * stiffness;
+        lowerVelocity += lowerForce;
+        lowerVelocity *= damping;
+        lowerRotation += lowerVelocity;
+
+        // Apply transforms
+        upperJaw.style.transform = `rotate(${-upperRotation}deg)`;
+        lowerJaw.style.transform = `rotate(${lowerRotation}deg)`;
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Add water splash particles
+    if (splashParticles) {
+        const crocSvg = document.querySelector('.crocodile-svg');
+        const rect = crocSvg.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Create water droplets
+        const dropletEmojis = ['💧', '💦', '🌊'];
+        for (let i = 0; i < 20; i++) {
+            const emoji = dropletEmojis[Math.floor(Math.random() * dropletEmojis.length)];
+            splashParticles.createParticle(centerX, centerY, {
+                emoji: emoji,
+                size: 15 + Math.random() * 20,
+                velocity: 6 + Math.random() * 6,
+                gravity: 0.4,
+                lifetime: 1500,
+                scale: 0.6 + Math.random() * 0.6
+            });
+        }
+        splashParticles.start();
+    }
 }
 
 // Show CHOMP message

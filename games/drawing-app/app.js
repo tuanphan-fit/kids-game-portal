@@ -15,13 +15,29 @@ let currentSize = 15;
 let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
+let lastTime = 0; // For velocity calculation
 let history = [];
 let historyIndex = -1;
 const maxHistory = 20;
 let currentPicture = null;
 
+// Physics: Particle system for splash effects
+let splashParticles = null;
+let sparkleParticles = null;
+
+// Initialize physics
+function initPhysics() {
+    if (!splashParticles) {
+        splashParticles = new Physics.ParticleSystem(document.body, 50);
+    }
+    if (!sparkleParticles) {
+        sparkleParticles = new Physics.ParticleSystem(document.body, 30);
+    }
+}
+
 // Initialize the app
 function initApp() {
+    initPhysics(); // Initialize physics engine
     renderPictureSelection();
     generateColorPalette();
     setupEventListeners();
@@ -176,17 +192,44 @@ function setTool(tool) {
     currentTool = tool;
 
     // Update active state
-    document.querySelectorAll('.tool-btn').forEach(btn => {
-        btn.classList.remove('active');
+    const activeBtn = Array.from(document.querySelectorAll('.tool-btn')).find(btn => {
         if (btn.dataset.tool === tool) {
             btn.classList.add('active');
+            return true;
         }
+        return false;
     });
 
+    // Sparkle particle effect on tool selection
+    if (activeBtn && sparkleParticles) {
+        const rect = activeBtn.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        // Create 8 sparkle particles in diamond shape
+        const sparkleEmojis = ['⭐', '✨', '💫', '🌟', '⚡'];
+        for (let i = 0; i < 8; i++) {
+            const angle = (i / 8) * Math.PI * 2; // Radial explosion
+            const emoji = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+
+            sparkleParticles.createParticle(centerX, centerY, {
+                emoji: emoji,
+                size: 18 + Math.random() * 12,
+                velocity: 3 + Math.random() * 3,
+                angle: angle,
+                gravity: 0.1,
+                lifetime: 800,
+                scale: 1,
+                rotation: Math.random() * 360
+            });
+        }
+        sparkleParticles.start();
+    }
+
     // Update cursor
-    if (tool === 'fill') {
+    if (canvas && tool === 'fill') {
         canvas.style.cursor = 'crosshair';
-    } else {
+    } else if (canvas) {
         canvas.style.cursor = 'crosshair';
     }
 }
@@ -227,27 +270,46 @@ function startDrawing(e) {
     isDrawing = true;
     lastX = e.offsetX;
     lastY = e.offsetY;
+    lastTime = Date.now();
 }
 
-// Draw
+// Draw with velocity-based brush size
 function draw(e) {
     if (!isDrawing) return;
     if (currentTool === 'fill') return;
 
     const x = e.offsetX;
     const y = e.offsetY;
+    const currentTime = Date.now();
+
+    // Calculate velocity (pixels per ms)
+    const deltaTime = Math.max(currentTime - lastTime, 1);
+    const deltaX = x - lastX;
+    const deltaY = y - lastY;
+    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    const velocity = distance / deltaTime;
+
+    // Adjust brush size based on velocity (slower = thicker, faster = thinner)
+    let dynamicSize = currentSize;
+    if (currentTool === 'brush') {
+        const sizeMultiplier = Math.max(0.5, Math.min(1.5, 1 - (velocity / 3)));
+        dynamicSize = currentSize * sizeMultiplier;
+    } else if (currentTool === 'eraser') {
+        dynamicSize = currentSize * 2;
+    }
 
     ctx.beginPath();
     ctx.moveTo(lastX, lastY);
     ctx.lineTo(x, y);
     ctx.strokeStyle = currentTool === 'eraser' ? '#FFFFFF' : currentColor;
-    ctx.lineWidth = currentTool === 'eraser' ? currentSize * 2 : currentSize;
+    ctx.lineWidth = dynamicSize;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.stroke();
 
     lastX = x;
     lastY = y;
+    lastTime = currentTime;
 }
 
 // Stop drawing
@@ -324,6 +386,29 @@ function floodFill(startX, startY, fillColor) {
     }
 
     ctx.putImageData(imageData, 0, 0);
+
+    // Splash particle effect
+    if (splashParticles) {
+        const canvasRect = canvas.getBoundingClientRect();
+        const screenX = canvasRect.left + startX;
+        const screenY = canvasRect.top + startY;
+
+        // Create color droplets
+        const dropEmojis = ['💧', '✨', '⭐', '🌟'];
+        for (let i = 0; i < 12; i++) {
+            const emoji = dropEmojis[Math.floor(Math.random() * dropEmojis.length)];
+            splashParticles.createParticle(screenX, screenY, {
+                emoji: emoji,
+                size: 20 + Math.random() * 15,
+                velocity: 4 + Math.random() * 4,
+                gravity: 0.3,
+                lifetime: 1200,
+                scale: 0.8 + Math.random() * 0.4
+            });
+        }
+        splashParticles.start();
+    }
+
     saveState();
 }
 

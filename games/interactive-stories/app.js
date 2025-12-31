@@ -104,21 +104,67 @@ function renderPage() {
     }, 10);
 }
 
-// Go to next page
+// Go to next page with 3D flip transition
 function nextPage() {
     if (currentPageIndex < currentStory.pages.length - 1) {
-        currentPageIndex++;
-        renderPage();
+        const storyContent = document.querySelector('.story-content');
+
+        // Add 3D flip out animation
+        storyContent.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease';
+        storyContent.style.transform = 'translateX(-50px) rotateY(-15deg)';
+        storyContent.style.opacity = '0';
+
+        setTimeout(() => {
+            currentPageIndex++;
+            renderPage();
+
+            // Reset and animate new page in from opposite direction
+            storyContent.style.transform = 'translateX(50px) rotateY(15deg)';
+
+            setTimeout(() => {
+                storyContent.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease';
+                storyContent.style.transform = 'translateX(0) rotateY(0deg)';
+                storyContent.style.opacity = '1';
+
+                // Clear transition after animation completes
+                setTimeout(() => {
+                    storyContent.style.transition = '';
+                }, 400);
+            }, 50);
+        }, 400);
     } else {
         showStoryComplete();
     }
 }
 
-// Go to previous page
+// Go to previous page with 3D flip transition
 function previousPage() {
     if (currentPageIndex > 0) {
-        currentPageIndex--;
-        renderPage();
+        const storyContent = document.querySelector('.story-content');
+
+        // Add 3D flip out animation (opposite direction)
+        storyContent.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease';
+        storyContent.style.transform = 'translateX(50px) rotateY(15deg)';
+        storyContent.style.opacity = '0';
+
+        setTimeout(() => {
+            currentPageIndex--;
+            renderPage();
+
+            // Reset and animate new page in from opposite direction
+            storyContent.style.transform = 'translateX(-50px) rotateY(-15deg)';
+
+            setTimeout(() => {
+                storyContent.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease';
+                storyContent.style.transform = 'translateX(0) rotateY(0deg)';
+                storyContent.style.opacity = '1';
+
+                // Clear transition after animation completes
+                setTimeout(() => {
+                    storyContent.style.transition = '';
+                }, 400);
+            }, 50);
+        }, 400);
     }
 }
 

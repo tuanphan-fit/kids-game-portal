@@ -19,6 +19,7 @@ let matchedPairs = 0;
 let moves = 0;
 let canFlip = true;
 let audioContext = null;
+let matchParticles = null;
 
 // Sound effects for each animal
 const animalSounds = {
@@ -222,6 +223,9 @@ function playFlipSound() {
 
 // Initialize game
 function initGame() {
+    // Initialize physics engine
+    initPhysics();
+
     // Create pairs
     gameCards = [...cards, ...cards];
 
@@ -237,6 +241,13 @@ function initGame() {
     moves = 0;
     canFlip = true;
     updateMoves();
+}
+
+// Initialize physics
+function initPhysics() {
+    if (!matchParticles) {
+        matchParticles = new Physics.ParticleSystem(document.body, 50);
+    }
 }
 
 // Shuffle cards using Fisher-Yates algorithm
@@ -310,6 +321,9 @@ function checkMatch() {
             matchedPairs++;
             flippedCards = [];
             canFlip = true;
+
+            // Create celebration particles at match position
+            createMatchParticles(card1, card2);
 
             // Make cards disappear after a short delay
             setTimeout(() => {
@@ -391,6 +405,36 @@ function createParticles() {
             }, 4000);
         }, i * 50);
     }
+}
+
+// Create physics-based match celebration particles
+function createMatchParticles(card1, card2) {
+    if (!matchParticles) return;
+
+    // Get center position between the two cards
+    const rect1 = card1.getBoundingClientRect();
+    const rect2 = card2.getBoundingClientRect();
+    const centerX = (rect1.left + rect1.width / 2 + rect2.left + rect2.width / 2) / 2;
+    const centerY = (rect1.top + rect1.height / 2 + rect2.top + rect2.height / 2) / 2;
+
+    // Create 15 celebration particles
+    const particleEmojis = ['⭐', '✨', '💫', '🌟'];
+    for (let i = 0; i < 15; i++) {
+        const angle = (i / 15) * Math.PI * 2; // Radial explosion
+        const emoji = particleEmojis[Math.floor(Math.random() * particleEmojis.length)];
+
+        matchParticles.createParticle(centerX, centerY, {
+            emoji: emoji,
+            size: 20 + Math.random() * 15,
+            velocity: 2 + Math.random() * 2,
+            angle: angle,
+            gravity: 0.08,
+            lifetime: 1500,
+            scale: 1,
+            rotation: Math.random() * 360
+        });
+    }
+    matchParticles.start();
 }
 
 // Navigate back to portal

@@ -18,6 +18,16 @@ const gameState = {
     timerInterval: null
 };
 
+// Physics: Trail particles
+let trailParticles = null;
+
+// Initialize physics
+function initPhysics() {
+    if (!trailParticles) {
+        trailParticles = new Physics.ParticleSystem(document.getElementById('gameArea'), 100);
+    }
+}
+
 // Audio context
 let audioContext = null;
 
@@ -124,6 +134,8 @@ function playGameOverSound() {
 
 // Start game
 function startGame() {
+    initPhysics(); // Initialize physics engine
+
     // Reset state
     gameState.score = 0;
     gameState.isPlaying = true;
@@ -202,24 +214,80 @@ function spawnBall() {
     animateBall(ball);
 }
 
-// Animate ball falling
+// Animate ball falling with physics
 function animateBall(ball) {
     const gameArea = document.getElementById('gameArea');
-    let posY = -80;
-    const speed = 3 + Math.random() * 2;
+
+    // Create physics object for the ball
+    const ballPhys = new Physics.PhysicsObject(
+        parseFloat(ball.style.left),
+        -80,
+        1 // Mass
+    );
+
+    // Add slight horizontal drift
+    ballPhys.vx = (Math.random() - 0.5) * 2;
+    ballPhys.vy = 2 + Math.random() * 2; // Initial downward velocity
+
+    const gravity = 0.15;
+    const bounceFactor = 0.4;
+    const gameAreaHeight = gameArea.clientHeight;
+
+    // Trail creation counter
+    let frameCount = 0;
 
     function fall() {
         if (!gameState.isPlaying || !ball.parentNode) return;
 
-        posY += speed;
-        ball.style.top = posY + 'px';
+        // Update physics
+        ballPhys.update(gravity, 0.99);
 
-        // Check if ball fell off screen
-        if (posY > gameArea.clientHeight) {
-            if (ball.parentNode) {
-                ball.parentNode.removeChild(ball);
+        // Check for bounce at bottom
+        if (ballPhys.y > gameAreaHeight - 80) {
+            ballPhys.y = gameAreaHeight - 80;
+            ballPhys.vy = -ballPhys.vy * bounceFactor;
+
+            // Squeeze effect on bounce
+            ball.style.transform = `scale(1.2, 0.8)`;
+            setTimeout(() => {
+                if (ball.parentNode) {
+                    ball.style.transform = 'scale(1, 1)';
+                }
+            }, 100);
+
+            // If velocity is very low, remove ball
+            if (Math.abs(ballPhys.vy) < 1) {
+                if (ball.parentNode) {
+                    ball.parentNode.removeChild(ball);
+                }
+                return;
             }
-            return;
+        }
+
+        // Update ball position
+        ball.style.left = ballPhys.x + 'px';
+        ball.style.top = ballPhys.y + 'px';
+
+        // Rotate based on velocity
+        ballPhys.rotation += ballPhys.vx * 2;
+        ball.style.transform += ` rotate(${ballPhys.rotation}deg)`;
+
+        // Create trail particles (30% of frames)
+        frameCount++;
+        if (frameCount % 3 === 0 && trailParticles) {
+            trailParticles.createParticle(
+                ballPhys.x + 40,
+                ballPhys.y + 40,
+                {
+                    emoji: '✨',
+                    size: 12,
+                    velocity: 0,
+                    gravity: 0.05,
+                    lifetime: 300,
+                    scale: 0.6
+                }
+            );
+            trailParticles.start();
         }
 
         requestAnimationFrame(fall);
