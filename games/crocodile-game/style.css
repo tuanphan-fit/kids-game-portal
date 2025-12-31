@@ -161,15 +161,12 @@ body {
 
 /* Teeth */
 .tooth {
-    fill: url(#toothGradient);
-    stroke: #BDC3C7;
-    stroke-width: 2;
     cursor: pointer;
     transition: all 0.2s ease;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-.tooh:hover {
+.tooth:hover {
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
@@ -215,24 +212,24 @@ body {
 /* Jaw Snap Animation */
 .upper-jaw.snapping {
     animation: jawSnapUpper 0.3s ease-out forwards;
-    transform-origin: 400px 350px;
+    transform-origin: 450px 450px;
 }
 
 .lower-jaw.snapping {
     animation: jawSnapLower 0.3s ease-out forwards;
-    transform-origin: 400px 350px;
+    transform-origin: 450px 450px;
 }
 
 @keyframes jawSnapUpper {
     0% { transform: rotate(0deg); }
-    50% { transform: rotate(-40deg); }
-    100% { transform: rotate(-35deg); }
+    50% { transform: rotate(-35deg); }
+    100% { transform: rotate(-30deg); }
 }
 
 @keyframes jawSnapLower {
     0% { transform: rotate(0deg); }
-    50% { transform: rotate(40deg); }
-    100% { transform: rotate(35deg); }
+    50% { transform: rotate(35deg); }
+    100% { transform: rotate(30deg); }
 }
 
 /* Screen Shake */

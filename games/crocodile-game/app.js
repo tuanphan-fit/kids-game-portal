@@ -142,102 +142,50 @@ function generateTeeth() {
     upperTeethGroup.innerHTML = '';
     lowerTeethGroup.innerHTML = '';
 
-    // Add SVG definitions for gradients
-    addSVGDefinitions();
-
-    // Upper teeth positions
+    // Upper teeth positions (along the gum line)
     const upperPositions = [
-        { x: 160, y: 270 },
-        { x: 220, y: 265 },
-        { x: 280, y: 262 },
-        { x: 340, y: 260 },
-        { x: 400, y: 258 },
-        { x: 460, y: 260 },
-        { x: 520, y: 262 },
-        { x: 580, y: 265 }
+        { x: 150, y: 315, rx: 20, ry: 35 },
+        { x: 230, y: 310, rx: 22, ry: 38 },
+        { x: 310, y: 307, rx: 24, ry: 40 },
+        { x: 390, y: 305, rx: 25, ry: 42 },
+        { x: 470, y: 305, rx: 25, ry: 42 },
+        { x: 550, y: 307, rx: 24, ry: 40 },
+        { x: 630, y: 310, rx: 22, ry: 38 },
+        { x: 710, y: 315, rx: 20, ry: 35 }
     ];
 
-    // Lower teeth positions
+    // Lower teeth positions (along the gum line)
     const lowerPositions = [
-        { x: 200, y: 360 },
-        { x: 260, y: 365 },
-        { x: 320, y: 368 },
-        { x: 380, y: 370 },
-        { x: 440, y: 368 },
-        { x: 500, y: 365 },
-        { x: 560, y: 360 }
+        { x: 200, y: 400, rx: 20, ry: 35 },
+        { x: 290, y: 405, rx: 22, ry: 37 },
+        { x: 380, y: 408, rx: 24, ry: 38 },
+        { x: 470, y: 410, rx: 25, ry: 38 },
+        { x: 560, y: 408, rx: 24, ry: 38 },
+        { x: 650, y: 405, rx: 22, ry: 37 },
+        { x: 740, y: 400, rx: 20, ry: 35 }
     ];
 
     // Create upper teeth
     upperPositions.forEach((pos, index) => {
-        createTooth(upperTeethGroup, pos, index, 'upper');
+        createTooth(upperTeethGroup, pos, index);
     });
 
     // Create lower teeth
     lowerPositions.forEach((pos, index) => {
-        createTooth(lowerTeethGroup, pos, index + UPPER_TEETH_COUNT, 'lower');
+        createTooth(lowerTeethGroup, pos, index + UPPER_TEETH_COUNT);
     });
 }
 
-// Add SVG gradient definitions
-function addSVGDefinitions() {
-    const svg = document.getElementById('crocodile');
-
-    // Check if defs already exists
-    if (svg.querySelector('defs')) return;
-
-    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-
-    // Jaw gradient
-    const jawGradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
-    jawGradient.setAttribute('id', 'jawGradient');
-    jawGradient.setAttribute('x1', '0%');
-    jawGradient.setAttribute('y1', '0%');
-    jawGradient.setAttribute('x2', '0%');
-    jawGradient.setAttribute('y2', '100%');
-
-    const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-    stop1.setAttribute('offset', '0%');
-    stop1.setAttribute('style', 'stop-color:#27AE60;stop-opacity:1');
-
-    const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-    stop2.setAttribute('offset', '100%');
-    stop2.setAttribute('style', 'stop-color:#1E8449;stop-opacity:1');
-
-    jawGradient.appendChild(stop1);
-    jawGradient.appendChild(stop2);
-
-    // Tooth gradient
-    const toothGradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
-    toothGradient.setAttribute('id', 'toothGradient');
-    toothGradient.setAttribute('x1', '0%');
-    toothGradient.setAttribute('y1', '0%');
-    toothGradient.setAttribute('x2', '0%');
-    toothGradient.setAttribute('y2', '100%');
-
-    const tStop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-    tStop1.setAttribute('offset', '0%');
-    tStop1.setAttribute('style', 'stop-color:#FFFFFF;stop-opacity:1');
-
-    const tStop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-    tStop2.setAttribute('offset', '100%');
-    tStop2.setAttribute('style', 'stop-color:#ECF0F1;stop-opacity:1');
-
-    toothGradient.appendChild(tStop1);
-    toothGradient.appendChild(tStop2);
-
-    defs.appendChild(jawGradient);
-    defs.appendChild(toothGradient);
-    svg.insertBefore(defs, svg.firstChild);
-}
-
 // Create individual tooth
-function createTooth(group, position, index, row) {
+function createTooth(group, position, index) {
     const tooth = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
     tooth.setAttribute('cx', position.x);
     tooth.setAttribute('cy', position.y);
-    tooth.setAttribute('rx', 18);
-    tooth.setAttribute('ry', 25);
+    tooth.setAttribute('rx', position.rx);
+    tooth.setAttribute('ry', position.ry);
+    tooth.setAttribute('fill', 'url(#toothWhite)');
+    tooth.setAttribute('stroke', '#BDC3C7');
+    tooth.setAttribute('stroke-width', '2');
     tooth.setAttribute('class', 'tooth');
     tooth.setAttribute('data-index', index);
 
