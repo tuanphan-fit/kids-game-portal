@@ -166,12 +166,13 @@ body {
 .keys-row {
     display: flex;
     justify-content: center;
-    gap: var(--spacing-3);
-    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    flex-wrap: nowrap; /* CRITICAL: Don't wrap piano keys - keep in one row */
     padding: var(--spacing-4);
     background: var(--bg-card);
     border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow-x: auto; /* Allow horizontal scroll if needed */
 }
 
 /* Piano Key - Better visibility */
@@ -189,8 +190,9 @@ body {
     align-items: center;
     justify-content: flex-end;
     padding-bottom: var(--spacing-4);
-    min-width: 60px; /* Ensure minimum width */
+    width: 70px; /* Fixed width for consistent layout */
     min-height: 160px; /* Taller keys for better visibility */
+    flex-shrink: 0; /* Don't shrink keys */
 }
 
 .piano-key.white {
@@ -202,8 +204,9 @@ body {
     background-color: #000000;
     background-image: none;
     border-color: #000;
-    min-width: 40px;
+    width: 50px; /* Black keys slightly narrower */
     min-height: 100px;
+    flex-shrink: 0;
 }
 
 .piano-key:active,
@@ -370,8 +373,15 @@ body {
         min-height: 400px; /* Ensure visibility in portrait */
     }
 
+    .keys-row {
+        /* Keep piano horizontal in portrait too */
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start; /* Align left for scrolling */
+    }
+
     .piano-key {
-        min-width: 60px;
+        width: 60px; /* Slightly smaller in portrait */
         min-height: 140px;
     }
 
@@ -417,12 +427,13 @@ body {
     }
 
     .keys-row {
-        flex-direction: column;
+        /* Keep piano horizontal in landscape too */
+        flex-direction: row;
         flex-wrap: nowrap;
     }
 
     .piano-key {
-        min-width: 80px;
+        width: 80px; /* Larger in landscape */
         min-height: 180px;
     }
 
@@ -450,7 +461,7 @@ body {
     }
 
     .piano-key {
-        min-width: 50px;
+        width: 50px; /* Smaller on mobile */
         min-height: 120px;
     }
 
@@ -476,8 +487,14 @@ body {
         min-height: 350px; /* Still ensure visibility on small screens */
     }
 
+    .keys-row {
+        /* Ensure horizontal scroll on very small screens */
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+
     .piano-key {
-        min-width: 40px;
+        width: 45px; /* Even smaller on tiny screens */
         min-height: 100px;
         padding-bottom: var(--spacing-3);
     }

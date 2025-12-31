@@ -68,22 +68,18 @@
         </footer>
     </div>
 
-    <!-- Tap to Start Overlay -->
-    <div id="tapToStartOverlay" class="tap-to-start-overlay">
-        <div class="tap-content">
-            <div class="tap-icon">👆</div>
-            <h1 class="tap-title">Tap to Start!</h1>
-            <p class="tap-subtitle">Tap anywhere to play</p>
-        </div>
-    </div>
-
     <script src="js/navigation.js"></script>
     <script>
-        // Initialize first interaction handler
+        // Initialize on page load (no tap to start needed)
         document.addEventListener('DOMContentLoaded', function() {
-            GameNavigation.handleFirstInteraction(function() {
-                // Initialize card animations after user interaction
-                initCardAnimations();
+            // Card animations initialize immediately
+            document.querySelectorAll('.game-card.active').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-8px)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
             });
         });
 
@@ -101,24 +97,6 @@
             } else if (gameName === 'interactive-stories') {
                 window.location.href = 'games/interactive-stories/index.html';
             }
-        }
-
-        // Add hover sound effect (optional - requires audio files)
-        function playHoverSound() {
-            // You can add sound effects here later
-            console.log('Hover!');
-        }
-
-        // Add click animation
-        function initCardAnimations() {
-            document.querySelectorAll('.game-card.active').forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    card.style.transform = 'scale(1.05) rotate(2deg)';
-                });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'scale(1) rotate(0deg)';
-                });
-            });
         }
     </script>
 </body>
