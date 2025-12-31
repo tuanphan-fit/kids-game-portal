@@ -1,6 +1,6 @@
 # 🎮 Kids Game Portal
 
-A fun, colorful game portal built for young children (ages 3-5)! Starting with an interactive drawing app.
+A fun, colorful game portal built for young children (ages 3-5)! Now with 2 exciting games!
 
 ## 🎨 Features
 
@@ -8,9 +8,9 @@ A fun, colorful game portal built for young children (ages 3-5)! Starting with a
 - Colorful, kid-friendly interface
 - Large, easy-to-click buttons
 - Animated game cards
-- Coming soon placeholders for future games
+- Multiple games to play and more coming soon!
 
-### Drawing App
+### 🎨 Drawing App
 - **Freehand Drawing** - Draw with mouse or touch
 - **Brush Tool** - Smooth drawing with adjustable colors
 - **Fill Bucket** - Fill the canvas with colors
@@ -20,6 +20,15 @@ A fun, colorful game portal built for young children (ages 3-5)! Starting with a
 - **Undo** - Go back if you make a mistake
 - **Clear Canvas** - Start fresh
 - **Save Drawing** - Download your masterpiece as PNG
+
+### 🎴 Memory Card Game
+- **Card Matching** - Flip cards to find matching pairs
+- **8 Cute Animals** - Dog, Cat, Panda, Fox, Frog, Lion, Cow, Pig
+- **Move Counter** - Track how many moves you've made
+- **Flip Animations** - Beautiful 3D card flip effects
+- **Match Celebration** - Fun animations when you find a pair
+- **Win Celebration** - Particle effects and congratulations when you win!
+- **Play Again** - Easy restart for endless fun
 
 ## 🚀 How to Run
 
@@ -54,10 +63,14 @@ kids-game-portal/
 ├── css/
 │   └── common.css            # Shared styles
 ├── games/
-│   └── drawing-app/
-│       ├── index.html        # Drawing app
-│       ├── style.css         # Drawing app styles
-│       └── app.js            # Drawing app logic
+│   ├── drawing-app/
+│   │   ├── index.html        # Drawing app
+│   │   ├── style.css         # Drawing app styles
+│   │   └── app.js            # Drawing app logic
+│   └── memory-game/
+│       ├── index.html        # Memory game
+│       ├── style.css         # Memory game styles
+│       └── app.js            # Memory game logic
 └── README.md                 # This file
 ```
 
@@ -104,6 +117,37 @@ kids-game-portal/
 
 5. **Go Back**
    - Click "← Back" to return to the game portal
+
+## 🎴 How to Play Memory Game
+
+1. **Start the Game**
+   - Click the Memory Game card from the portal
+   - Cards will be shuffled and placed face down
+
+2. **Flip Cards**
+   - Click any card to flip it over
+   - Try to remember where each animal is!
+   - Click a second card to find a match
+
+3. **Match Pairs**
+   - If two cards match, they stay flipped
+   - If they don't match, they flip back over
+   - Find all 8 pairs to win!
+
+4. **Win the Game**
+   - Match all pairs to see the celebration!
+   - Your moves are counted - try to beat your record!
+   - Click "Play Again" to start a new game
+
+5. **Go Back**
+   - Click "← Back" to return to the game portal
+
+**Game Features:**
+- 16 cards (8 pairs of cute animals)
+- Move counter to track your progress
+- Beautiful flip animations
+- Celebration particles when you win!
+- No timer - play at your own pace
 
 ## 💡 Tips
 - Works best on tablet or desktop

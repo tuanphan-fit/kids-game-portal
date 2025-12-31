@@ -21,17 +21,18 @@
                 <p class="game-description">Draw and color!</p>
             </div>
 
-            <!-- Coming Soon Games -->
-            <div class="game-card coming-soon">
-                <div class="game-icon">🧮</div>
-                <h2 class="game-title">Math Fun</h2>
-                <p class="game-description">Coming Soon!</p>
+            <!-- Crocodile Dentist - Active Game -->
+            <div class="game-card active" data-game="crocodile-game" onclick="navigateToGame('crocodile-game')">
+                <div class="game-icon">🐊</div>
+                <h2 class="game-title">Crocodile</h2>
+                <p class="game-description">Tap the teeth!</p>
             </div>
 
-            <div class="game-card coming-soon">
+            <!-- Memory Game - Active Game -->
+            <div class="game-card active" data-game="memory-game" onclick="navigateToGame('memory-game')">
                 <div class="game-icon">🎴</div>
                 <h2 class="game-title">Memory Game</h2>
-                <p class="game-description">Coming Soon!</p>
+                <p class="game-description">Match the pairs!</p>
             </div>
 
             <div class="game-card coming-soon">
@@ -62,6 +63,10 @@
         function navigateToGame(gameName) {
             if (gameName === 'drawing-app') {
                 window.location.href = 'games/drawing-app/index.html';
+            } else if (gameName === 'memory-game') {
+                window.location.href = 'games/memory-game/index.html';
+            } else if (gameName === 'crocodile-game') {
+                window.location.href = 'games/crocodile-game/index.html';
             }
         }
 
