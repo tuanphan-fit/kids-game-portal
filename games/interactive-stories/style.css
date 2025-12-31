@@ -15,10 +15,10 @@
 }
 
 html, body {
-    overflow: hidden;
-    position: fixed;
+    overflow: auto; /* Changed from hidden to allow scrolling */
+    position: relative; /* Changed from fixed */
     width: 100%;
-    height: 100%;
+    min-height: 100vh; /* Changed from height to min-height */
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
 }
@@ -35,8 +35,8 @@ body {
    2. CONTAINER
    ======================================== */
 .stories-container {
-    height: 100vh;
-    width: 100vw;
+    min-height: 100vh; /* Changed from height to min-height */
+    width: 100%;
     display: flex;
     flex-direction: column;
     padding: env(safe-area-inset-top) env(safe-area-inset-right)
@@ -184,7 +184,7 @@ body {
 }
 
 .story-card:hover {
-    transform: translateY(-12px) rotateX(5deg) rotateY(5deg);
+    transform: rotateX(5deg) rotateY(5deg) scale(1.05);
     box-shadow:
         0 12px 32px rgba(236, 67, 106, 0.2),
         0 6px 16px rgba(0, 0, 0, 0.15),
@@ -193,7 +193,7 @@ body {
 }
 
 .story-card:active {
-    transform: translateY(0) scale(0.98);
+    transform: scale(0.98);
 }
 
 .story-emoji {

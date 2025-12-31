@@ -155,7 +155,7 @@ body {
     gap: var(--spacing-4);
     padding: var(--spacing-6);
     overflow-y: auto;
-    min-height: 400px; /* ENSURE piano keys are visible */
+    min-height: 500px; /* Increased to ensure all keys are visible */
     background: var(--bg-surface);
     border-radius: 1.5rem;
     margin: var(--spacing-3) var(--spacing-6);
@@ -173,7 +173,13 @@ body {
     border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     width: 100%; /* Use full width */
-    height: 100%; /* Use full height */
+    min-height: 200px; /* Ensure piano keys have enough height */
+}
+
+/* Animal Keys Row - allow wrapping to show all 8 animals */
+.keys-row.animal-keys-row {
+    flex-wrap: wrap; /* Allow animal keys to wrap into multiple rows */
+    min-height: 280px; /* Ensure enough height for 2 rows of animal keys */
 }
 
 /* Piano Key - Better visibility */
