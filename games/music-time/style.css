@@ -172,7 +172,8 @@ body {
     background: var(--bg-card);
     border-radius: 1rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    overflow-x: auto; /* Allow horizontal scroll if needed */
+    width: 100%; /* Use full width */
+    height: 100%; /* Use full height */
 }
 
 /* Piano Key - Better visibility */
@@ -189,10 +190,11 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    padding-bottom: var(--spacing-4);
-    width: 70px; /* Fixed width for consistent layout */
-    min-height: 160px; /* Taller keys for better visibility */
-    flex-shrink: 0; /* Don't shrink keys */
+    padding-bottom: var(--spacing-6);
+    flex: 1; /* Grow to fill available space */
+    min-width: 60px; /* Minimum width for small screens */
+    height: 100%; /* Fill container height */
+    min-height: 180px; /* Ensure good height */
 }
 
 .piano-key.white {
@@ -376,13 +378,12 @@ body {
     .keys-row {
         /* Keep piano horizontal in portrait too */
         flex-wrap: nowrap;
-        overflow-x: auto;
-        justify-content: flex-start; /* Align left for scrolling */
     }
 
     .piano-key {
-        width: 60px; /* Slightly smaller in portrait */
-        min-height: 140px;
+        flex: 1; /* Fill space */
+        min-width: 50px; /* Slightly smaller min in portrait */
+        min-height: 180px;
     }
 
     .animal-key {
@@ -433,7 +434,8 @@ body {
     }
 
     .piano-key {
-        width: 80px; /* Larger in landscape */
+        flex: 1; /* Fill space */
+        min-width: 80px; /* Larger in landscape */
         min-height: 180px;
     }
 
@@ -461,8 +463,9 @@ body {
     }
 
     .piano-key {
-        width: 50px; /* Smaller on mobile */
-        min-height: 120px;
+        flex: 1; /* Fill space */
+        min-width: 45px; /* Smaller min on mobile */
+        min-height: 160px;
     }
 
     .animal-key {
@@ -488,15 +491,15 @@ body {
     }
 
     .keys-row {
-        /* Ensure horizontal scroll on very small screens */
-        overflow-x: auto;
-        justify-content: flex-start;
+        /* Keep horizontal layout */
+        flex-wrap: nowrap;
     }
 
     .piano-key {
-        width: 45px; /* Even smaller on tiny screens */
-        min-height: 100px;
-        padding-bottom: var(--spacing-3);
+        flex: 1; /* Fill available space */
+        min-width: 40px; /* Smaller min on tiny screens */
+        min-height: 140px;
+        padding-bottom: var(--spacing-4);
     }
 
     .key-label {
