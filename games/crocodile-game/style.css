@@ -145,12 +145,20 @@ body {
     stroke-width: 3;
 }
 
+/* Upper jaw with enhanced 3D depth */
 .jaw-green.upper {
-    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+    filter:
+        drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3))
+        drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2))
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
+/* Lower jaw with enhanced 3D depth */
 .jaw-green.lower {
-    filter: drop-shadow(0 -5px 10px rgba(0, 0, 0, 0.2));
+    filter:
+        drop-shadow(0 -8px 16px rgba(0, 0, 0, 0.3))
+        drop-shadow(0 -4px 8px rgba(0, 0, 0, 0.2))
+        drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .gum {
@@ -163,27 +171,56 @@ body {
 .tooth {
     cursor: pointer;
     transition: all 0.2s ease;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    /* Enhanced 3D depth shadows */
+    filter:
+        drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25))
+        drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+
+    /* 3D gradient for tooth appearance */
+    fill: url(#toothGradient);
 }
 
+/* Hover state with enhanced 3D effect */
 .tooth:hover {
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    filter:
+        drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35))
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+
+    /* Subtle scale on hover */
+    transform: scale(1.05) translateZ(5px);
 }
 
+/* Pressed state with depth */
 .tooth.pressed {
     fill: #FFFACD;
-    transform: translateY(5px);
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    transform: scale(0.95) translateY(3px);
+    filter:
+        drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))
+        drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
 
+/* Sore tooth with red glow animation */
 .tooth.sore {
-    animation: toothWiggle 0.5s ease-in-out;
+    animation: toothWiggle 0.5s ease-in-out, soreGlow 1s ease-in-out infinite;
 }
 
 @keyframes toothWiggle {
     0%, 100% { transform: rotate(0deg); }
     25% { transform: rotate(-5deg); }
     75% { transform: rotate(5deg); }
+}
+
+@keyframes soreGlow {
+    0%, 100% {
+        filter:
+            drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25))
+            drop-shadow(0 0 8px rgba(255, 0, 0, 0.4));
+    }
+    50% {
+        filter:
+            drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25))
+            drop-shadow(0 0 20px rgba(255, 0, 0, 0.8));
+    }
 }
 
 /* Eyes */

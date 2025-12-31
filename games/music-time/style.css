@@ -178,13 +178,19 @@ body {
 
 /* Piano Key - Better visibility */
 .piano-key {
-    background-color: #FFFFFF;
+    background: linear-gradient(to bottom, #ffffff 0%, #f8f8f8 100%);
     background-image: none; /* Remove gradient */
     border: 4px solid #333;
     border-radius: 0 0 0.625rem 0.625rem;
     cursor: pointer;
     transition: all 0.1s ease;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+
+    /* Enhanced 3D shadows */
+    box-shadow:
+        0 8px 16px rgba(0, 0, 0, 0.25),
+        0 4px 8px rgba(0, 0, 0, 0.15),
+        inset 0 -4px 8px rgba(0, 0, 0, 0.1);
+
     position: relative;
     display: flex;
     flex-direction: column;
@@ -195,6 +201,23 @@ body {
     min-width: 60px; /* Minimum width for small screens */
     height: 100%; /* Fill container height */
     min-height: 180px; /* Ensure good height */
+    transform-style: preserve-3d;
+}
+
+/* Top highlight for 3D cylindrical look */
+.piano-key::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 35%;
+    background: linear-gradient(to bottom,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 100%);
+    border-radius: 0.625rem 0.625rem 0 0;
+    pointer-events: none;
 }
 
 .piano-key.white {
@@ -203,29 +226,45 @@ body {
 }
 
 .piano-key.black {
-    background-color: #000000;
+    background: linear-gradient(to bottom, #333 0%, #000000 100%);
     background-image: none;
     border-color: #000;
     width: 50px; /* Black keys slightly narrower */
     min-height: 100px;
     flex-shrink: 0;
+
+    /* Enhanced 3D shadows for black keys */
+    box-shadow:
+        0 8px 16px rgba(0, 0, 0, 0.4),
+        0 4px 8px rgba(0, 0, 0, 0.25),
+        inset 0 -4px 8px rgba(255, 255, 255, 0.05);
+}
+
+/* Black keys have their own highlight */
+.piano-key.black::before {
+    background: linear-gradient(to bottom,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%);
 }
 
 .piano-key:active,
 .piano-key.pressed {
-    transform: translateY(4px) scale(0.98);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transform: translateY(6px) rotateX(-3deg);
+    box-shadow:
+        inset 0 4px 8px rgba(0, 0, 0, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .piano-key.white:active,
 .piano-key.white.pressed {
-    background-color: #FFD1DC; /* Solid color */
+    background: linear-gradient(to bottom, #FFD1DC 0%, #ffb3c6 100%);
     background-image: none;
 }
 
 .piano-key.black:active,
 .piano-key.black.pressed {
-    background-color: #222; /* Solid color */
+    background: linear-gradient(to bottom, #222 0%, #1a1a1a 100%);
     background-image: none;
 }
 
