@@ -212,24 +212,24 @@ body {
 /* Jaw Snap Animation */
 .upper-jaw.snapping {
     animation: jawSnapUpper 0.3s ease-out forwards;
-    transform-origin: 450px 450px;
+    transform-origin: 400px 400px;
 }
 
 .lower-jaw.snapping {
     animation: jawSnapLower 0.3s ease-out forwards;
-    transform-origin: 450px 450px;
+    transform-origin: 400px 400px;
 }
 
 @keyframes jawSnapUpper {
     0% { transform: rotate(0deg); }
-    50% { transform: rotate(-35deg); }
-    100% { transform: rotate(-30deg); }
+    50% { transform: rotate(-40deg); }
+    100% { transform: rotate(-35deg); }
 }
 
 @keyframes jawSnapLower {
     0% { transform: rotate(0deg); }
-    50% { transform: rotate(35deg); }
-    100% { transform: rotate(30deg); }
+    50% { transform: rotate(40deg); }
+    100% { transform: rotate(35deg); }
 }
 
 /* Screen Shake */

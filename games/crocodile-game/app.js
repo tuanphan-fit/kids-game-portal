@@ -142,27 +142,27 @@ function generateTeeth() {
     upperTeethGroup.innerHTML = '';
     lowerTeethGroup.innerHTML = '';
 
-    // Upper teeth positions (along the gum line)
+    // Upper teeth positions (following the curved gum line)
     const upperPositions = [
-        { x: 150, y: 315, rx: 20, ry: 35 },
-        { x: 230, y: 310, rx: 22, ry: 38 },
-        { x: 310, y: 307, rx: 24, ry: 40 },
-        { x: 390, y: 305, rx: 25, ry: 42 },
-        { x: 470, y: 305, rx: 25, ry: 42 },
-        { x: 550, y: 307, rx: 24, ry: 40 },
-        { x: 630, y: 310, rx: 22, ry: 38 },
-        { x: 710, y: 315, rx: 20, ry: 35 }
+        { x: 120, y: 385, rx: 22, ry: 38, rotation: -15 },
+        { x: 195, y: 365, rx: 24, ry: 40, rotation: -10 },
+        { x: 275, y: 352, rx: 26, ry: 42, rotation: -5 },
+        { x: 360, y: 345, rx: 28, ry: 43, rotation: 0 },
+        { x: 440, y: 345, rx: 28, ry: 43, rotation: 0 },
+        { x: 525, y: 352, rx: 26, ry: 42, rotation: 5 },
+        { x: 605, y: 365, rx: 24, ry: 40, rotation: 10 },
+        { x: 680, y: 385, rx: 22, ry: 38, rotation: 15 }
     ];
 
-    // Lower teeth positions (along the gum line)
+    // Lower teeth positions (following the curved gum line)
     const lowerPositions = [
-        { x: 200, y: 400, rx: 20, ry: 35 },
-        { x: 290, y: 405, rx: 22, ry: 37 },
-        { x: 380, y: 408, rx: 24, ry: 38 },
-        { x: 470, y: 410, rx: 25, ry: 38 },
-        { x: 560, y: 408, rx: 24, ry: 38 },
-        { x: 650, y: 405, rx: 22, ry: 37 },
-        { x: 740, y: 400, rx: 20, ry: 35 }
+        { x: 160, y: 450, rx: 22, ry: 38, rotation: -12 },
+        { x: 250, y: 460, rx: 24, ry: 40, rotation: -6 },
+        { x: 340, y: 468, rx: 26, ry: 41, rotation: 0 },
+        { x: 430, y: 470, rx: 27, ry: 42, rotation: 0 },
+        { x: 520, y: 468, rx: 26, ry: 41, rotation: 0 },
+        { x: 610, y: 460, rx: 24, ry: 40, rotation: 6 },
+        { x: 700, y: 450, rx: 22, ry: 38, rotation: 12 }
     ];
 
     // Create upper teeth
@@ -188,6 +188,11 @@ function createTooth(group, position, index) {
     tooth.setAttribute('stroke-width', '2');
     tooth.setAttribute('class', 'tooth');
     tooth.setAttribute('data-index', index);
+
+    // Apply rotation if specified
+    if (position.rotation) {
+        tooth.setAttribute('transform', `rotate(${position.rotation}, ${position.x}, ${position.y})`);
+    }
 
     // Touch event for iPad
     tooth.addEventListener('touchstart', (e) => {
