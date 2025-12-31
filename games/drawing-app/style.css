@@ -7,6 +7,89 @@
     flex-direction: column;
 }
 
+/* Picture Selection Screen */
+.picture-selection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.selection-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.selection-header h2 {
+    font-size: 2.5rem;
+    color: #FF6B6B;
+    text-shadow: 2px 2px 0 #FFD700;
+    margin-bottom: 10px;
+}
+
+.selection-header p {
+    font-size: 1.3rem;
+    color: #2C3E50;
+}
+
+.pictures-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1400px;
+    padding: 20px;
+}
+
+.picture-card {
+    background: white;
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 4px solid transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.picture-card:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    border-color: #FFD700;
+}
+
+.picture-card svg {
+    width: 100%;
+    height: 180px;
+    border-radius: 10px;
+}
+
+.picture-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2C3E50;
+    text-align: center;
+}
+
+.picture-category {
+    font-size: 0.9rem;
+    color: #7F8C8D;
+    background: #ECF0F1;
+    padding: 5px 15px;
+    border-radius: 15px;
+}
+
+/* Coloring Screen */
+.coloring-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Header */
 .drawing-header {
     display: flex;

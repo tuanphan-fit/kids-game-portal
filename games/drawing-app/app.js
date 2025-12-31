@@ -1,198 +1,334 @@
-// Drawing App - Main JavaScript
-// Wait for DOM to load
+// Drawing App - Coloring Book Feature
 document.addEventListener('DOMContentLoaded', function() {
-    initCanvas();
-    initEventListeners();
-    updateBrushPreview();
+    initApp();
 });
 
 // Global variables
 let canvas;
+let ctx;
 let currentTool = 'brush';
 let currentColor = '#FF0000';
 let currentSize = 15;
+let isDrawing = false;
+let lastX = 0;
+let lastY = 0;
 let history = [];
 let historyIndex = -1;
 const maxHistory = 20;
+let currentPicture = null;
 
-// Initialize Fabric.js Canvas
-function initCanvas() {
+// Initialize the app
+function initApp() {
+    renderPictureSelection();
+    generateColorPalette();
+    setupEventListeners();
+}
+
+// Render picture selection grid
+function renderPictureSelection() {
+    const grid = document.getElementById('picturesGrid');
+    grid.innerHTML = '';
+
+    coloringPictures.forEach(picture => {
+        const card = document.createElement('div');
+        card.className = 'picture-card';
+        card.onclick = () => loadPicture(picture.id);
+
+        // Parse SVG and create a thumbnail
+        const parser = new DOMParser();
+        const svgDoc = parser.parseFromString(picture.svg, 'image/svg+xml');
+        const svgElement = svgDoc.documentElement;
+
+        // Set viewBox and preserve aspect ratio
+        svgElement.setAttribute('width', '100%');
+        svgElement.setAttribute('height', '100%');
+        svgElement.setAttribute('viewBox', '0 0 400 500');
+        svgElement.style.borderRadius = '10px';
+
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'picture-name';
+        nameDiv.textContent = picture.name;
+
+        const categorySpan = document.createElement('span');
+        categorySpan.className = 'picture-category';
+        categorySpan.textContent = picture.category;
+
+        card.appendChild(svgElement);
+        card.appendChild(nameDiv);
+        card.appendChild(categorySpan);
+        grid.appendChild(card);
+    });
+}
+
+// Generate color palette from pictures.js data
+function generateColorPalette() {
+    const palette = document.getElementById('colorPalette');
+    palette.innerHTML = '';
+
+    colorPalette.forEach((color, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'color-btn';
+        btn.style.backgroundColor = color;
+        btn.dataset.color = color;
+        btn.onclick = () => setColor(color);
+        if (index === 0) btn.classList.add('active');
+        palette.appendChild(btn);
+    });
+}
+
+// Setup event listeners
+function setupEventListeners() {
+    // Event listeners will be set after canvas is initialized
+}
+
+// Load a picture onto the canvas
+function loadPicture(pictureId) {
+    currentPicture = coloringPictures.find(p => p.id === pictureId);
+    if (!currentPicture) return;
+
+    // Switch to coloring screen
+    document.getElementById('pictureSelection').style.display = 'none';
+    document.getElementById('coloringScreen').style.display = 'block';
+    document.getElementById('backBtn').style.display = 'none';
+    document.getElementById('homeBtn').style.display = 'block';
+
+    // Initialize canvas
+    initCanvas(currentPicture.svg);
+}
+
+// Initialize canvas with SVG
+function initCanvas(svgContent) {
     const canvasWrapper = document.querySelector('.canvas-wrapper');
     const wrapperWidth = canvasWrapper.clientWidth - 40;
     const wrapperHeight = Math.min(600, window.innerHeight * 0.5);
 
-    canvas = new fabric.Canvas('drawing-canvas', {
-        width: wrapperWidth,
-        height: wrapperHeight,
-        isDrawingMode: true,
-        backgroundColor: '#FFFFFF'
-    });
+    canvas = document.getElementById('drawing-canvas');
+    ctx = canvas.getContext('2d');
 
-    // Set up drawing brush
-    canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
-    canvas.freeDrawingBrush.width = currentSize;
-    canvas.freeDrawingBrush.color = currentColor;
+    canvas.width = wrapperWidth;
+    canvas.height = wrapperHeight;
 
-    // Save initial state for undo
-    saveState();
+    // Clear canvas
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Handle window resize
-    window.addEventListener('resize', debounce(handleResize, 250));
-}
+    // Load SVG onto canvas
+    const img = new Image();
+    const svgBlob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(svgBlob);
 
-// Handle canvas resize
-function handleResize() {
-    const canvasWrapper = document.querySelector('.canvas-wrapper');
-    const wrapperWidth = canvasWrapper.clientWidth - 40;
-    const wrapperHeight = Math.min(600, window.innerHeight * 0.5);
+    img.onload = function() {
+        // Calculate scaling to fit canvas while maintaining aspect ratio
+        const scale = Math.min(
+            canvas.width / 400,
+            canvas.height / 500
+        );
+        const scaledWidth = 400 * scale;
+        const scaledHeight = 500 * scale;
+        const x = (canvas.width - scaledWidth) / 2;
+        const y = (canvas.height - scaledHeight) / 2;
 
-    const imageData = canvas.toDataURL();
+        ctx.drawImage(img, x, y, scaledWidth, scaledHeight);
+        URL.revokeObjectURL(url);
+        saveState();
 
-    canvas.setDimensions({
-        width: wrapperWidth,
-        height: wrapperHeight
-    });
-
-    // Restore image after resize
-    fabric.Image.fromURL(imageData, function(img) {
-        canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
-    });
-}
-
-// Debounce function
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
+        // Setup canvas event listeners
+        setupCanvasListeners();
     };
+
+    img.src = url;
 }
 
-// Initialize event listeners
-function initEventListeners() {
-    // Tool buttons
-    document.querySelectorAll('.tool-btn').forEach(btn => {
-        btn.addEventListener('click', handleToolClick);
-    });
+// Setup canvas event listeners
+function setupCanvasListeners() {
+    canvas.onmousedown = startDrawing;
+    canvas.onmousemove = draw;
+    canvas.onmouseup = stopDrawing;
+    canvas.onmouseout = stopDrawing;
 
-    // Color buttons
-    document.querySelectorAll('.color-btn').forEach(btn => {
-        btn.addEventListener('click', handleColorClick);
-    });
+    // Touch support
+    canvas.ontouchstart = (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const rect = canvas.getBoundingClientRect();
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+        startDrawing({ offsetX: x, offsetY: y });
+    };
 
-    // Size buttons
-    document.querySelectorAll('.size-btn').forEach(btn => {
-        btn.addEventListener('click', handleSizeClick);
-    });
+    canvas.ontouchmove = (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const rect = canvas.getBoundingClientRect();
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+        draw({ offsetX: x, offsetY: y });
+    };
 
-    // Action buttons
-    document.querySelector('.undo-btn').addEventListener('click', undo);
-    document.querySelector('.clear-btn').addEventListener('click', clearCanvas);
-    document.querySelector('.save-btn').addEventListener('click', saveImage);
-
-    // Canvas events for undo
-    canvas.on('path:created', saveState);
-    canvas.on('object:added', saveState);
+    canvas.ontouchend = stopDrawing;
 }
 
-// Handle tool selection
-function handleToolClick(e) {
-    const tool = e.currentTarget.dataset.tool;
-
-    // Update active state
-    document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
-    e.currentTarget.classList.add('active');
-
+// Set tool (brush, fill, eraser)
+function setTool(tool) {
     currentTool = tool;
 
-    if (tool === 'brush') {
-        canvas.isDrawingMode = true;
-        canvas.freeDrawingBrush.color = currentColor;
-        canvas.freeDrawingBrush.width = currentSize;
-    } else if (tool === 'eraser') {
-        canvas.isDrawingMode = true;
-        canvas.freeDrawingBrush.color = '#FFFFFF';
-        canvas.freeDrawingBrush.width = currentSize * 2;
-    } else if (tool === 'fill') {
-        canvas.isDrawingMode = false;
-        fillCanvas(currentColor);
-    }
+    // Update active state
+    document.querySelectorAll('.tool-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.tool === tool) {
+            btn.classList.add('active');
+        }
+    });
 
-    updateBrushPreview();
+    // Update cursor
+    if (tool === 'fill') {
+        canvas.style.cursor = 'crosshair';
+    } else {
+        canvas.style.cursor = 'crosshair';
+    }
 }
 
-// Handle color selection
-function handleColorClick(e) {
-    const color = e.currentTarget.dataset.color;
-
-    // Update active state
-    document.querySelectorAll('.color-btn').forEach(btn => btn.classList.remove('active'));
-    e.currentTarget.classList.add('active');
-
+// Set color
+function setColor(color) {
     currentColor = color;
 
-    if (currentTool === 'brush') {
-        canvas.freeDrawingBrush.color = currentColor;
-    }
-
-    updateBrushPreview();
+    // Update active state
+    document.querySelectorAll('.color-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.color === color) {
+            btn.classList.add('active');
+        }
+    });
 }
 
-// Handle brush size selection
-function handleSizeClick(e) {
-    const size = parseInt(e.currentTarget.dataset.size);
-
-    // Update active state
-    document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
-    e.currentTarget.classList.add('active');
-
+// Set brush size
+function setSize(size) {
     currentSize = size;
 
-    if (currentTool === 'brush' || currentTool === 'eraser') {
-        const brushSize = currentTool === 'eraser' ? currentSize * 2 : currentSize;
-        canvas.freeDrawingBrush.width = brushSize;
-    }
-
-    updateBrushPreview();
+    // Update active state
+    document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent.includes(size === 5 ? '⚫' : size === 15 ? '⚫⚫' : '⚫⚫⚫')) {
+            btn.classList.add('active');
+        }
+    });
 }
 
-// Update brush preview
-function updateBrushPreview() {
-    const preview = document.getElementById('brushPreview');
-    const size = currentTool === 'eraser' ? currentSize * 2 : currentSize;
-    const color = currentTool === 'eraser' ? '#FFFFFF' : currentColor;
+// Start drawing
+function startDrawing(e) {
+    if (currentTool === 'fill') {
+        floodFill(e.offsetX, e.offsetY, currentColor);
+        return;
+    }
 
-    preview.style.width = Math.min(60, Math.max(20, size * 2)) + 'px';
-    preview.style.height = Math.min(60, Math.max(20, size * 2)) + 'px';
-    preview.style.background = color;
+    isDrawing = true;
+    lastX = e.offsetX;
+    lastY = e.offsetY;
+}
 
-    if (color === '#FFFFFF') {
-        preview.style.border = '3px solid #000';
-    } else {
-        preview.style.border = '4px solid #FFD700';
+// Draw
+function draw(e) {
+    if (!isDrawing) return;
+    if (currentTool === 'fill') return;
+
+    const x = e.offsetX;
+    const y = e.offsetY;
+
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
+    ctx.strokeStyle = currentTool === 'eraser' ? '#FFFFFF' : currentColor;
+    ctx.lineWidth = currentTool === 'eraser' ? currentSize * 2 : currentSize;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+
+    lastX = x;
+    lastY = y;
+}
+
+// Stop drawing
+function stopDrawing() {
+    if (isDrawing) {
+        isDrawing = false;
+        saveState();
     }
 }
 
-// Fill canvas with color
-function fillCanvas(color) {
-    canvas.setBackgroundColor(color, canvas.renderAll.bind(canvas));
+// Flood fill algorithm
+function floodFill(startX, startY, fillColor) {
+    // Convert hex color to RGB
+    const hexToRgb = (hex) => {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    };
+
+    const fill = hexToRgb(fillColor);
+    if (!fill) return;
+
+    // Get canvas pixel data
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = imageData.data;
+
+    // Get starting pixel color
+    const startPos = (Math.floor(startY) * canvas.width + Math.floor(startX)) * 4;
+    const startR = data[startPos];
+    const startG = data[startPos + 1];
+    const startB = data[startPos + 2];
+    const startA = data[startPos + 3];
+
+    // Don't fill if same color
+    if (startR === fill.r && startG === fill.g && startB === fill.b && startA === 255) return;
+
+    const stack = [[Math.floor(startX), Math.floor(startY)]];
+    const visited = new Set();
+
+    const tolerance = 50;
+
+    while (stack.length > 0) {
+        const [x, y] = stack.pop();
+        const key = `${x},${y}`;
+
+        if (visited.has(key)) continue;
+        if (x < 0 || x >= canvas.width || y < 0 || y >= canvas.height) continue;
+
+        const pos = (y * canvas.width + x) * 4;
+
+        // Check if pixel matches starting color (with tolerance)
+        if (Math.abs(data[pos] - startR) > tolerance ||
+            Math.abs(data[pos + 1] - startG) > tolerance ||
+            Math.abs(data[pos + 2] - startB) > tolerance) {
+            continue;
+        }
+
+        visited.add(key);
+
+        // Fill pixel
+        data[pos] = fill.r;
+        data[pos + 1] = fill.g;
+        data[pos + 2] = fill.b;
+        data[pos + 3] = 255;
+
+        // Add neighbors to stack
+        stack.push([x + 1, y]);
+        stack.push([x - 1, y]);
+        stack.push([x, y + 1]);
+        stack.push([x, y - 1]);
+    }
+
+    ctx.putImageData(imageData, 0, 0);
     saveState();
 }
 
 // Save canvas state for undo
 function saveState() {
-    // Remove any redo history
     history = history.slice(0, historyIndex + 1);
+    history.push(canvas.toDataURL());
 
-    // Save current state
-    const json = JSON.stringify(canvas.toJSON());
-    history.push(json);
-
-    // Limit history size
     if (history.length > maxHistory) {
         history.shift();
     } else {
@@ -200,43 +336,55 @@ function saveState() {
     }
 }
 
-// Undo last action
+// Undo
 function undo() {
     if (historyIndex > 0) {
         historyIndex--;
-        const state = history[historyIndex];
-        canvas.loadFromJSON(state, function() {
-            canvas.renderAll();
-        });
+        const img = new Image();
+        img.onload = function() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
+        };
+        img.src = history[historyIndex];
     }
 }
 
 // Clear canvas
 function clearCanvas() {
-    if (confirm('Are you sure you want to clear your drawing?')) {
-        canvas.clear();
-        canvas.setBackgroundColor('#FFFFFF', canvas.renderAll.bind(canvas));
-        saveState();
+    if (confirm('Clear all your coloring?')) {
+        if (currentPicture) {
+            initCanvas(currentPicture.svg);
+        } else {
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            saveState();
+        }
     }
 }
 
 // Save image
 function saveImage() {
-    const dataURL = canvas.toDataURL({
-        format: 'png',
-        quality: 1
-    });
-
-    // Create download link
     const link = document.createElement('a');
-    link.download = 'my-drawing-' + Date.now() + '.png';
-    link.href = dataURL;
-    document.body.appendChild(link);
+    link.download = `coloring-${currentPicture?.name || 'drawing'}-${Date.now()}.png`;
+    link.href = canvas.toDataURL('image/png');
     link.click();
-    document.body.removeChild(link);
+    showNotification('Saved! 🎨');
+}
 
-    // Show success message
-    showNotification('Drawing saved! 🎨');
+// Show picture selection (go back home)
+function showPictureSelection() {
+    document.getElementById('pictureSelection').style.display = 'block';
+    document.getElementById('coloringScreen').style.display = 'none';
+    document.getElementById('backBtn').style.display = 'block';
+    document.getElementById('homeBtn').style.display = 'none';
+    currentPicture = null;
+}
+
+// Go back to portal
+function goBack() {
+    if (confirm('Go back to the game portal?')) {
+        window.location.href = '../../index.html';
+    }
 }
 
 // Show notification
@@ -295,10 +443,3 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
-
-// Navigate back to portal
-function goBack() {
-    if (confirm('Go back to the game portal?')) {
-        window.location.href = '../../index.html';
-    }
-}
