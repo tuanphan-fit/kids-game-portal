@@ -111,17 +111,30 @@ class ParticleSystem {
             will-change: transform, opacity;
         `;
 
+        // Calculate velocity based on angle if provided
+        let vx, vy;
+        if (options.angle !== undefined && options.velocity !== undefined) {
+            // Use angle-based velocity (radial explosion)
+            vx = Math.cos(options.angle) * options.velocity;
+            vy = Math.sin(options.angle) * options.velocity;
+        } else {
+            // Random velocity
+            vx = (Math.random() - 0.5) * (options.velocity || 10);
+            vy = (Math.random() - 0.5) * (options.velocity || 10);
+        }
+
         // Particle properties
         const config = {
             emoji: options.emoji || '✨',
             size: options.size || 30,
-            vx: (Math.random() - 0.5) * (options.velocity || 10),
-            vy: (Math.random() - 0.5) * (options.velocity || 10),
+            vx: vx,
+            vy: vy,
             gravity: options.gravity || 0.2,
             rotation: Math.random() * 360,
             rotationSpeed: (Math.random() - 0.5) * 20,
             lifetime: options.lifetime || 1500,
             scale: options.scale || 1,
+            createdAt: Date.now(), // Critical: Track when particle was created
             element: particle
         };
 
