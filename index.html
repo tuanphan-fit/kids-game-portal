@@ -41,6 +41,13 @@
                 <p class="game-description">Match the pairs!</p>
             </div>
 
+            <!-- Memory Match V2 - Active Game -->
+            <div class="game-card active" data-game="memory-game-v2" onclick="navigateToGame('memory-game-v2')">
+                <div class="game-icon">🧩</div>
+                <h2 class="game-title">Memory Match</h2>
+                <p class="game-description">New memory game!</p>
+            </div>
+
             <!-- Catch Colors - Active Game -->
             <div class="game-card active" data-game="catch-colors" onclick="navigateToGame('catch-colors')">
                 <div class="game-icon">🎯</div>
@@ -88,6 +95,8 @@
                 window.location.href = 'games/drawing-app/index.html';
             } else if (gameName === 'memory-game') {
                 window.location.href = 'games/memory-game/index.html';
+            } else if (gameName === 'memory-game-v2') {
+                window.location.href = 'games/memory-game-v2/index.html';
             } else if (gameName === 'crocodile-game') {
                 window.location.href = 'games/crocodile-game/index.html';
             } else if (gameName === 'catch-colors') {
