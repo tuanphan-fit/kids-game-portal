@@ -190,7 +190,7 @@ body {
 
 .card-back::after {
     content: '?';
-    font-size: 48px;
+    font-size: 64px;
     font-weight: 700;
     color: var(--white);
 }
@@ -199,24 +199,28 @@ body {
     background: var(--card-bg);
     border: 3px solid var(--primary-color);
     transform: rotateY(180deg);
-    font-size: 48px;
+    font-size: 64px;
 }
 
 .card.matched {
     cursor: default;
+    animation: disappear 0.6s ease forwards;
+    pointer-events: none;
 }
 
-.card.matched .card-front {
-    background: linear-gradient(135deg, #90EE90 0%, #32CD32 100%);
-    animation: matchPulse 0.5s ease;
-}
-
-@keyframes matchPulse {
-    0%, 100% {
-        transform: rotateY(180deg) scale(1);
+@keyframes disappear {
+    0% {
+        transform: scale(1);
+        opacity: 1;
     }
     50% {
-        transform: rotateY(180deg) scale(1.1);
+        transform: scale(1.1);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+        visibility: hidden;
     }
 }
 
@@ -330,7 +334,7 @@ body {
 
     .card-back::after,
     .card-front {
-        font-size: 36px;
+        font-size: 48px;
     }
 
     .modal-content {
@@ -363,6 +367,6 @@ body {
 
     .card-back::after,
     .card-front {
-        font-size: 28px;
+        font-size: 40px;
     }
 }
