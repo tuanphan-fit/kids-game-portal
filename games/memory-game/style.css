@@ -161,12 +161,14 @@
 .memory-game {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: 1fr;
     gap: 0.5rem;
     max-width: 450px;
     width: 90%;
     margin: 0 auto;
+    padding: var(--spacing-5);
     box-sizing: border-box;
+    flex: 1;
+    overflow-y: auto;
 }
 
 /* ========================================
