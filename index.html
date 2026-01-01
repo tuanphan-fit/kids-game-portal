@@ -34,6 +34,13 @@
                 <p class="game-description">Tap the teeth!</p>
             </div>
 
+            <!-- Crocodile Dentist V2 - Active Game -->
+            <div class="game-card active" data-game="crocodile-game-v2" onclick="navigateToGame('crocodile-game-v2')">
+                <div class="game-icon">🐊</div>
+                <h2 class="game-title">Crocodile V2</h2>
+                <p class="game-description">Choose difficulty!</p>
+            </div>
+
             <!-- Memory Game - Active Game -->
             <div class="game-card active" data-game="memory-game" onclick="navigateToGame('memory-game')">
                 <div class="game-icon">🎴</div>
@@ -99,6 +106,8 @@
                 window.location.href = 'games/memory-game-v2/index.html';
             } else if (gameName === 'crocodile-game') {
                 window.location.href = 'games/crocodile-game/index.html';
+            } else if (gameName === 'crocodile-game-v2') {
+                window.location.href = 'games/crocodile-game-v2/index.html';
             } else if (gameName === 'catch-colors') {
                 window.location.href = 'games/catch-colors/index.html';
             } else if (gameName === 'music-time') {

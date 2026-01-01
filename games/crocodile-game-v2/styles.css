@@ -1,0 +1,456 @@
+/* Crocodile Dentist V2 - Independent Implementation */
+
+/* CSS Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Colors */
+    --primary-color: #4CAF50;
+    --dark-green: #2E7D32;
+    --light-green: #81C784;
+    --gum-color: #FF8A80;
+    --tooth-color: #FFFFFF;
+    --tooth-hover: #FFF9C4;
+    --bg-color: #E8F5E9;
+    --text-color: #1B5E20;
+    --white: #FFFFFF;
+
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+}
+
+/* Body */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Game Wrapper */
+.game-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-md);
+    min-height: 100vh;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header */
+.game-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    width: 100%;
+    max-width: 600px;
+    background: var(--white);
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: var(--space-md);
+}
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--light-green);
+    color: var(--text-color);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.back-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.back-btn .arrow {
+    font-size: 20px;
+}
+
+.game-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--dark-green);
+    text-align: center;
+    flex: 1;
+}
+
+.score {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--primary-color);
+    color: var(--white);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+}
+
+.score-value {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* Setup Panel */
+.setup-panel {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.setup-title {
+    font-size: 32px;
+    color: var(--dark-green);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+}
+
+.difficulty-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+}
+
+.difficulty-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    background: var(--bg-color);
+    border: 3px solid var(--primary-color);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.difficulty-btn:hover {
+    background: var(--light-green);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.difficulty-icon {
+    font-size: 48px;
+}
+
+.difficulty-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark-green);
+}
+
+.difficulty-teeth {
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+/* Game Area */
+.game-area {
+    width: 100%;
+    max-width: 600px;
+}
+
+.instruction-banner {
+    background: var(--white);
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: var(--space-lg);
+    text-align: center;
+}
+
+.instruction-banner p {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Crocodile Container */
+.crocodile-container {
+    position: relative;
+    background: var(--primary-color);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    transition: all 0.3s ease;
+}
+
+/* Crocodile head (optional decorative) */
+.crocodile-container::before {
+    content: '🐊';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 64px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Jaws */
+.jaw {
+    position: relative;
+    background: var(--primary-color);
+    border-radius: var(--radius-lg);
+    overflow: visible;
+}
+
+.upper-jaw {
+    border-bottom: 4px solid var(--dark-green);
+}
+
+.lower-jaw {
+    border-top: 4px solid var(--dark-green);
+    transform-origin: top center;
+    transition: transform 0.3s ease;
+}
+
+/* Mouth closed state */
+.crocodile-container.mouth-closed .lower-jaw {
+    transform: translateY(-100%) rotateX(-90deg);
+}
+
+/* Gum */
+.gum {
+    background: var(--gum-color);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.upper-jaw .gum {
+    border-bottom: 3px solid #E57373;
+}
+
+.lower-jaw .gum {
+    border-top: 3px solid #E57373;
+}
+
+/* Teeth Row */
+.teeth-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: center;
+    padding: var(--space-sm);
+}
+
+/* Tooth */
+.tooth {
+    width: 50px;
+    height: 60px;
+    background: var(--tooth-color);
+    border: 3px solid #E0E0E0;
+    border-radius: 8px 8px 16px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.tooth::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 10px;
+    background: #F5F5F5;
+    border-radius: 4px;
+}
+
+.tooth:hover:not(.clicked) {
+    background: var(--tooth-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.tooth:active:not(.clicked) {
+    transform: translateY(-2px);
+}
+
+.tooth.clicked {
+    background: #C8E6C9;
+    cursor: default;
+    transform: none;
+}
+
+.tooth.sore {
+    background: #FFCDD2;
+    animation: sorePulse 1s ease infinite;
+}
+
+@keyframes sorePulse {
+    0%, 100% {
+        background: #FFCDD2;
+    }
+    50% {
+        background: #EF9A9A;
+    }
+}
+
+/* Mouth snap animation */
+.crocodile-container.snapping {
+    animation: snapShake 0.5s ease;
+}
+
+@keyframes snapShake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-10px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(10px);
+    }
+}
+
+/* Game Over */
+.game-over {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    z-index: 1000;
+    animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+    from {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.game-over h2 {
+    font-size: 48px;
+    color: #E53935;
+    margin-bottom: var(--space-md);
+}
+
+.game-over p {
+    font-size: 20px;
+    color: var(--text-color);
+    margin-bottom: var(--space-xl);
+}
+
+.restart-btn {
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: var(--space-md) var(--space-xl);
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.restart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.restart-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-header {
+        flex-wrap: wrap;
+    }
+
+    .game-title {
+        order: -1;
+        width: 100%;
+        font-size: 24px;
+    }
+
+    .difficulty-options {
+        grid-template-columns: 1fr;
+    }
+
+    .tooth {
+        width: 40px;
+        height: 50px;
+    }
+
+    .game-over h2 {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-wrapper {
+        padding: var(--space-sm);
+    }
+
+    .setup-title {
+        font-size: 24px;
+    }
+
+    .difficulty-icon {
+        font-size: 36px;
+    }
+
+    .tooth {
+        width: 35px;
+        height: 45px;
+    }
+
+    .crocodile-container {
+        padding: var(--space-md);
+        min-height: 300px;
+    }
+
+    .crocodile-container::before {
+        font-size: 48px;
+        top: -45px;
+    }
+}
