@@ -75,6 +75,13 @@
                 <h2 class="game-title">Stories</h2>
                 <p class="game-description">Read fun stories!</p>
             </div>
+
+            <!-- GameBoy Simulator - Active Game -->
+            <div class="game-card active" data-game="gameboy-simulator" onclick="navigateToGame('gameboy-simulator')">
+                <div class="game-icon">🎮</div>
+                <h2 class="game-title">GameBoy</h2>
+                <p class="game-description">Play Snake!</p>
+            </div>
         </main>
 
         <footer class="footer">
@@ -114,6 +121,8 @@
                 window.location.href = 'games/music-time/index.html';
             } else if (gameName === 'interactive-stories') {
                 window.location.href = 'games/interactive-stories/index.html';
+            } else if (gameName === 'gameboy-simulator') {
+                window.location.href = 'games/gameboy-simulator/index.html';
             }
         }
     </script>

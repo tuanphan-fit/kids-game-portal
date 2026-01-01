@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>GameBoy Simulator - Kids Game Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-wrapper">
+        <!-- Header -->
+        <header class="game-header">
+            <button class="back-btn" id="backBtn">
+                <span class="arrow">←</span>
+                <span>Back</span>
+            </button>
+            <h1 class="game-title">GameBoy</h1>
+            <div class="info">
+                <span class="info-label">Game:</span>
+                <span class="info-value">Snake</span>
+            </div>
+        </header>
+
+        <!-- Instructions -->
+        <div class="instruction-banner">
+            <p>Use D-pad to move • A to start • B to restart</p>
+        </div>
+
+        <!-- GameBoy Device -->
+        <div class="gameboy">
+            <!-- Screen Frame -->
+            <div class="screen-frame">
+                <!-- Screen Border -->
+                <div class="screen-border">
+                    <!-- Screen Glass -->
+                    <div class="screen-glass">
+                        <!-- Power LED -->
+                        <div class="power-led" id="powerLed"></div>
+                        <!-- Battery LED -->
+                        <div class="battery-label">BATTERY</div>
+
+                        <!-- Actual Screen (Canvas) -->
+                        <div class="screen">
+                            <canvas id="gameScreen" width="160" height="144"></canvas>
+                        </div>
+
+                        <!-- Nintendo Logo -->
+                        <div class="nintendo-logo">
+                            <span>Nintendo GAME BOY</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls Area -->
+            <div class="controls-area">
+                <!-- D-Pad -->
+                <div class="dpad-container">
+                    <div class="dpad">
+                        <button class="dpad-btn dpad-up" data-direction="up" aria-label="Up">
+                            <span class="dpad-arrow">▲</span>
+                        </button>
+                        <button class="dpad-btn dpad-down" data-direction="down" aria-label="Down">
+                            <span class="dpad-arrow">▼</span>
+                        </button>
+                        <button class="dpad-btn dpad-left" data-direction="left" aria-label="Left">
+                            <span class="dpad-arrow">◄</span>
+                        </button>
+                        <button class="dpad-btn dpad-right" data-direction="right" aria-label="Right">
+                            <span class="dpad-arrow">►</span>
+                        </button>
+                        <div class="dpad-center"></div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="action-btn btn-b" data-button="b" aria-label="B Button">
+                        <span class="btn-label">B</span>
+                    </button>
+                    <button class="action-btn btn-a" data-button="a" aria-label="A Button">
+                        <span class="btn-label">A</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Start/Select Buttons -->
+            <div class="meta-controls">
+                <div class="meta-btn-group">
+                    <button class="meta-btn btn-select" data-button="select" aria-label="Select">
+                        <span class="meta-btn-label">SELECT</span>
+                    </button>
+                    <button class="meta-btn btn-start" data-button="start" aria-label="Start">
+                        <span class="meta-btn-label">START</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Speaker Grill -->
+            <div class="speaker">
+                <div class="speaker-grill">
+                    <div class="speaker-slot"></div>
+                    <div class="speaker-slot"></div>
+                    <div class="speaker-slot"></div>
+                    <div class="speaker-slot"></div>
+                    <div class="speaker-slot"></div>
+                    <div class="speaker-slot"></div>
+                </div>
+            </div>
+
+            <!-- Branding -->
+            <div class="branding">
+                <div class="brand-text">GAME BOY</div>
+                <div class="brand-model">DMG-01</div>
+            </div>
+        </div>
+
+        <!-- Game Over Overlay -->
+        <div class="game-over-overlay" id="gameOverOverlay" style="display: none;">
+            <div class="game-over-content">
+                <h2>GAME OVER</h2>
+                <p>Score: <span id="finalScore">0</span></p>
+                <p>Press A to restart</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
