@@ -348,7 +348,7 @@ class MemoryGame {
 
     goBack() {
         // Navigate back to portal
-        window.location.href = '../index.html';
+        window.location.href = '../../index.html';
     }
 }
 

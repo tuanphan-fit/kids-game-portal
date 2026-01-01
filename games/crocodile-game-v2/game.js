@@ -291,7 +291,7 @@ class CrocodileGame {
     }
 
     goBack() {
-        window.location.href = '../index.html';
+        window.location.href = '../../index.html';
     }
 }
 
