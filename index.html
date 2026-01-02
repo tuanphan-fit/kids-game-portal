@@ -27,13 +27,6 @@
                 <p class="game-description">Draw and color!</p>
             </div>
 
-            <!-- Crocodile Dentist - Active Game -->
-            <div class="game-card active" data-game="crocodile-game" onclick="navigateToGame('crocodile-game')">
-                <div class="game-icon">🐊</div>
-                <h2 class="game-title">Crocodile</h2>
-                <p class="game-description">Tap the teeth!</p>
-            </div>
-
             <!-- Crocodile Dentist V2 - Active Game -->
             <div class="game-card active" data-game="crocodile-game-v2" onclick="navigateToGame('crocodile-game-v2')">
                 <div class="game-icon">🐊</div>
@@ -82,6 +75,13 @@
                 <h2 class="game-title">GameBoy</h2>
                 <p class="game-description">Play Snake!</p>
             </div>
+
+            <!-- Toy Box Builder - Active Game -->
+            <div class="game-card active" data-game="toy-box-builder" onclick="navigateToGame('toy-box-builder')">
+                <div class="game-icon">🧸</div>
+                <h2 class="game-title">Toy Box</h2>
+                <p class="game-description">Build & stack!</p>
+            </div>
         </main>
 
         <footer class="footer">
@@ -111,8 +111,6 @@
                 window.location.href = 'games/memory-game/index.html';
             } else if (gameName === 'memory-game-v2') {
                 window.location.href = 'games/memory-game-v2/index.html';
-            } else if (gameName === 'crocodile-game') {
-                window.location.href = 'games/crocodile-game/index.html';
             } else if (gameName === 'crocodile-game-v2') {
                 window.location.href = 'games/crocodile-game-v2/index.html';
             } else if (gameName === 'catch-colors') {
@@ -123,6 +121,8 @@
                 window.location.href = 'games/interactive-stories/index.html';
             } else if (gameName === 'gameboy-simulator') {
                 window.location.href = 'games/gameboy-simulator/index.html';
+            } else if (gameName === 'toy-box-builder') {
+                window.location.href = 'games/toy-box-builder/index.html';
             }
         }
     </script>

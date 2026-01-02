@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toy Box Builder - Test Suite</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .test {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .pass {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .fail {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .running {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+        #results {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧸 Toy Box Builder - Test Suite</h1>
+    <div id="results"></div>
+
+    <script>
+        const results = document.getElementById('results');
+
+        function log(message, status = 'running') {
+            const div = document.createElement('div');
+            div.className = `test ${status}`;
+            div.textContent = message;
+            results.appendChild(div);
+            console.log(`[${status.toUpperCase()}] ${message}`);
+        }
+
+        async function runTests() {
+            log('Starting test suite...', 'running');
+
+            // Test 1: Check if THREE.js loads
+            if (typeof THREE !== 'undefined') {
+                log('✅ THREE.js loaded successfully (version ' + THREE.REVISION + ')', 'pass');
+            } else {
+                log('❌ THREE.js failed to load', 'fail');
+                return;
+            }
+
+            // Test 2: Check if Cannon-es loads
+            if (typeof CANNON !== 'undefined') {
+                log('✅ Cannon-es loaded successfully', 'pass');
+            } else {
+                log('❌ Cannon-es failed to load', 'fail');
+                return;
+            }
+
+            // Test 3: Check if GameNavigation loads
+            if (typeof GameNavigation !== 'undefined') {
+                log('✅ GameNavigation loaded successfully', 'pass');
+            } else {
+                log('❌ GameNavigation failed to load', 'fail');
+            }
+
+            // Wait for other scripts to load
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            // Test 4: Check scene.js functions
+            if (typeof initScene === 'function') {
+                log('✅ initScene function defined', 'pass');
+            } else {
+                log('❌ initScene function not defined', 'fail');
+            }
+
+            // Test 5: Check physics.js functions
+            if (typeof initPhysics === 'function') {
+                log('✅ initPhysics function defined', 'pass');
+            } else {
+                log('❌ initPhysics function not defined', 'fail');
+            }
+
+            // Test 6: Check input.js functions
+            if (typeof initInput === 'function') {
+                log('✅ initInput function defined', 'pass');
+            } else {
+                log('❌ initInput function not defined', 'fail');
+            }
+
+            // Test 7: Check app.js functions
+            if (typeof spawnObject === 'function') {
+                log('✅ spawnObject function defined', 'pass');
+            } else {
+                log('❌ spawnObject function not defined', 'fail');
+            }
+
+            // Test 8: Check resetScene function
+            if (typeof resetScene === 'function') {
+                log('✅ resetScene function defined', 'pass');
+            } else {
+                log('❌ resetScene function not defined', 'fail');
+            }
+
+            // Test 9: Check goBack function
+            if (typeof goBack === 'function') {
+                log('✅ goBack function defined', 'pass');
+            } else {
+                log('❌ goBack function not defined', 'fail');
+            }
+
+            // Test 10: Try to initialize scene
+            try {
+                initScene();
+                log('✅ initScene() executed without errors', 'pass');
+            } catch (error) {
+                log('❌ initScene() failed: ' + error.message, 'fail');
+                return;
+            }
+
+            // Test 11: Try to initialize physics
+            try {
+                initPhysics();
+                log('✅ initPhysics() executed without errors', 'pass');
+            } catch (error) {
+                log('❌ initPhysics() failed: ' + error.message, 'fail');
+                return;
+            }
+
+            // Test 12: Check scene is created
+            const scene = getScene();
+            if (scene && scene instanceof THREE.Scene) {
+                log('✅ Scene created successfully', 'pass');
+            } else {
+                log('❌ Scene not created properly', 'fail');
+            }
+
+            // Test 13: Check camera is created
+            const camera = getCamera();
+            if (camera && camera instanceof THREE.PerspectiveCamera) {
+                log('✅ Camera created successfully', 'pass');
+            } else {
+                log('❌ Camera not created properly', 'fail');
+            }
+
+            // Test 14: Check renderer is created
+            const renderer = getRenderer();
+            if (renderer && renderer instanceof THREE.WebGLRenderer) {
+                log('✅ Renderer created successfully', 'pass');
+            } else {
+                log('❌ Renderer not created properly', 'fail');
+            }
+
+            log('🎉 All tests completed! Game should be ready to play.', 'pass');
+        }
+
+        // Load scripts
+        const scripts = [
+            'https://cdnjs.cloudflare.com/ajax/libs/three.js/r150/three.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/cannon-es/0.20.0/cannon-es.min.js',
+            '../../js/navigation.js',
+            'scene.js',
+            'physics.js',
+            'input.js',
+            'app.js'
+        ];
+
+        let loadedCount = 0;
+
+        function loadScripts() {
+            let index = 0;
+
+            function loadNext() {
+                if (index >= scripts.length) {
+                    setTimeout(runTests, 500);
+                    return;
+                }
+
+                const script = document.createElement('script');
+                script.src = scripts[index];
+                script.onload = () => {
+                    log(`Loaded: ${scripts[index].split('/').pop()}`, 'running');
+                    loadedCount++;
+                    index++;
+                    loadNext();
+                };
+                script.onerror = () => {
+                    log(`❌ Failed to load: ${scripts[index]}`, 'fail');
+                    index++;
+                    loadNext();
+                };
+                document.head.appendChild(script);
+            }
+
+            loadNext();
+        }
+
+        loadScripts();
+    </script>
+</body>
+</html>
