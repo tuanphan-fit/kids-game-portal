@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Sand Box">
+
+    <title>Sand Box - Play with Sand</title>
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sandbox-container">
+        <header class="sandbox-header">
+            <button class="btn-back" onclick="goBack()">
+                <span class="arrow">←</span> Back
+            </button>
+            <h1 class="sandbox-title">🏖️ Sand Box</h1>
+            <div class="header-buttons">
+                <button class="btn-sound" id="soundToggle" onclick="toggleSound()">
+                    🔊
+                </button>
+                <button class="btn-reset" onclick="resetScene()">
+                    🗑️ Reset
+                </button>
+            </div>
+        </header>
+
+        <div id="loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem; color: #E65100; font-weight: bold;">Loading Sand Box...</div>
+
+        <div class="game-area">
+            <aside class="left-panel">
+                <div class="control-group">
+                    <h3 class="control-label">Colors</h3>
+                    <div class="color-selector">
+                        <button class="color-btn active" data-color="sand" onclick="selectColor('sand')">
+                            <div class="color-dot" style="background: #D4A574;"></div>
+                            Sand
+                        </button>
+                        <button class="color-btn" data-color="gold" onclick="selectColor('gold')">
+                            <div class="color-dot" style="background: #FFD700;"></div>
+                            Gold
+                        </button>
+                        <button class="color-btn" data-color="red" onclick="selectColor('red')">
+                            <div class="color-dot" style="background: #C62828;"></div>
+                            Red
+                        </button>
+                        <button class="color-btn" data-color="blue" onclick="selectColor('blue')">
+                            <div class="color-dot" style="background: #1565C0;"></div>
+                            Blue
+                        </button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3 class="control-label">Pour Sand</h3>
+                    <div class="pour-controls">
+                        <button class="pour-btn" id="autoPourBtn" onmousedown="startAutoPour()" onmouseup="stopAutoPour()" ontouchstart="startAutoPour()" ontouchend="stopAutoPour()">
+                            <div class="pour-icon">🌊</div>
+                            <span class="pour-label">Hold to Pour</span>
+                        </button>
+                        <button class="pour-btn" onclick="batchPour()">
+                            <div class="pour-icon">🪣</div>
+                            <span class="pour-label">Pour All</span>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <canvas id="gameCanvas"></canvas>
+
+            <aside class="right-panel">
+                <div class="control-group">
+                    <h3 class="control-label">Tools</h3>
+                    <div class="tool-controls">
+                        <button class="tool-btn" data-tool="shovel" onclick="selectTool('shovel')">
+                            <div class="tool-icon">🪣</div>
+                            <span class="tool-label">Bucket</span>
+                        </button>
+                        <button class="tool-btn" data-tool="rake" onclick="selectTool('rake')">
+                            <div class="tool-icon">🧹</div>
+                            <span class="tool-label">Rake</span>
+                        </button>
+                        <button class="tool-btn" data-tool="mold" onclick="selectTool('mold')">
+                            <div class="tool-icon">⭐</div>
+                            <span class="tool-label">Mold</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="instructions">
+                    <p>🌊 Hold to pour sand, drag big bucket!</p>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        if (typeof THREE === 'undefined') {
+            alert('Error: Three.js failed to load from CDN. Please check your internet connection.');
+        }
+        if (typeof CANNON === 'undefined') {
+            alert('Error: Cannon.js failed to load from CDN. Please check your internet connection.');
+        }
+    </script>
+    <script src="scene.js"></script>
+    <script src="physics.js"></script>
+    <script src="input.js"></script>
+    <script src="sounds.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

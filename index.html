@@ -82,6 +82,20 @@
                 <h2 class="game-title">Toy Box</h2>
                 <p class="game-description">Build & stack!</p>
             </div>
+
+            <!-- Sand Box - Active Game -->
+            <div class="game-card active" data-game="sand-box" onclick="navigateToGame('sand-box')">
+                <div class="game-icon">🏖️</div>
+                <h2 class="game-title">Sand Box</h2>
+                <p class="game-description">Pour & play!</p>
+            </div>
+
+            <!-- Building Blocks - Active Game -->
+            <div class="game-card active" data-game="building-blocks" onclick="navigateToGame('building-blocks')">
+                <div class="game-icon">🧱</div>
+                <h2 class="game-title">Building Blocks</h2>
+                <p class="game-description">Stack & build!</p>
+            </div>
         </main>
 
         <footer class="footer">
@@ -123,6 +137,10 @@
                 window.location.href = 'games/gameboy-simulator/index.html';
             } else if (gameName === 'toy-box-builder') {
                 window.location.href = 'games/toy-box-builder/index.html';
+            } else if (gameName === 'sand-box') {
+                window.location.href = 'games/sand-box/index.html';
+            } else if (gameName === 'building-blocks') {
+                window.location.href = 'games/building-blocks/index.html';
             }
         }
     </script>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Building Blocks">
+
+    <title>Building Blocks - My Game World</title>
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="../../css/design-system.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="building-blocks-container">
+        <header class="bb-header">
+            <button class="btn btn-back" onclick="goBack()">
+                <span class="arrow">←</span> Back
+            </button>
+            <h1 class="bb-title">🧱 Building Blocks</h1>
+            <button class="btn btn-reset" onclick="resetScene()">
+                🗑️ Reset
+            </button>
+        </header>
+
+        <div id="loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem; color: #0277BD; font-weight: bold; z-index: 100;">Loading 3D game...</div>
+        <canvas id="gameCanvas"></canvas>
+
+        <div class="toolbar">
+            <button class="btn btn-sm btn-primary" id="snapModeBtn" onclick="toggleSnapMode()">🧲 Snap Mode</button>
+            <button class="btn btn-sm btn-primary" id="orbitModeBtn" onclick="toggleOrbitMode()">🔨 Build Mode</button>
+            <button class="btn btn-sm" id="deleteModeBtn" onclick="toggleDeleteMode()">🗑️ Delete: OFF</button>
+            <div class="block-counter">Blocks: <span id="blockCount">0</span>/200</div>
+        </div>
+
+        <div class="block-type-selector" id="blockTypeSelector">
+        </div>
+
+        <div class="color-palette" id="colorPalette">
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-primary" onclick="showSaveModal()">💾 Save</button>
+            <button class="btn btn-primary" onclick="showLoadModal()">📂 Load</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay" style="display: none;">
+    </div>
+
+    <div class="modal" id="confirmModal" style="display: none;">
+        <div class="modal-content">
+            <h2 class="modal-title">⚠️ Confirm</h2>
+            <p class="modal-message"></p>
+            <div class="modal-actions">
+                <button class="btn btn-cancel" onclick="hideAllModals()">Cancel</button>
+                <button class="btn btn-confirm btn-danger">Yes, delete it!</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="saveModal" style="display: none;">
+        <div class="modal-content modal-large">
+            <h2 class="modal-title">💾 Save Creation</h2>
+            <div class="save-input-group">
+                <label class="save-label">Name:</label>
+                <input type="text" class="save-name-input" placeholder="Building #1" maxlength="20">
+            </div>
+            <div class="save-slots">
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-cancel" onclick="hideAllModals()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="loadModal" style="display: none;">
+        <div class="modal-content modal-large">
+            <h2 class="modal-title">📂 Load Creation</h2>
+            <div class="load-slots">
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-cancel" onclick="hideAllModals()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+    <script src="../../js/navigation.js"></script>
+    <script>
+        if (typeof THREE === 'undefined') {
+            alert('Error: Three.js failed to load from CDN. Please check your internet connection.');
+        }
+        if (typeof CANNON === 'undefined') {
+            alert('Error: Cannon.js failed to load from CDN. Please check your internet connection.');
+        }
+    </script>
+    <script src="blocks.js"></script>
+    <script src="scene.js"></script>
+    <script src="physics.js"></script>
+    <script src="input.js"></script>
+    <script src="storage.js"></script>
+    <script src="ui.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
