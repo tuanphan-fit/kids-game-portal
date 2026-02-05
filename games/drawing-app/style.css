@@ -8,9 +8,13 @@
 /* Drawing App Container */
 .drawing-container {
     min-height: 100vh;
+    min-height: 100dvh;
     background-color: #FFF5F7; /* Solid pink tint */
     background-image: none; /* Remove gradient */
-    padding: var(--spacing-6);
+    padding: calc(var(--spacing-6) + env(safe-area-inset-top))
+        calc(var(--spacing-6) + env(safe-area-inset-right))
+        calc(var(--spacing-6) + env(safe-area-inset-bottom))
+        calc(var(--spacing-6) + env(safe-area-inset-left));
     display: flex;
     flex-direction: column;
     font-family: var(--font-display);
@@ -570,8 +574,8 @@
 /* Brush Preview */
 .brush-preview {
     position: fixed;
-    bottom: var(--spacing-10);
-    right: var(--spacing-10);
+    bottom: calc(var(--spacing-10) + env(safe-area-inset-bottom));
+    right: calc(var(--spacing-10) + env(safe-area-inset-right));
     width: 60px;
     height: 60px;
     background: var(--bg-card);
@@ -646,7 +650,7 @@
     .brush-preview {
         width: 45px;
         height: 45px;
-        bottom: var(--spacing-5);
-        right: var(--spacing-5);
+        bottom: calc(var(--spacing-5) + env(safe-area-inset-bottom));
+        right: calc(var(--spacing-5) + env(safe-area-inset-right));
     }
 }

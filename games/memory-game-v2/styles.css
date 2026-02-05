@@ -40,6 +40,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     min-height: 100vh;
+    min-height: 100dvh;
     line-height: 1.6;
 }
 
@@ -48,8 +49,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: var(--space-md);
+    padding: calc(var(--space-md) + env(safe-area-inset-top))
+        calc(var(--space-md) + env(safe-area-inset-right))
+        calc(var(--space-md) + env(safe-area-inset-bottom))
+        calc(var(--space-md) + env(safe-area-inset-left));
     min-height: 100vh;
+    min-height: 100dvh;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
@@ -62,7 +67,7 @@ body {
     justify-content: space-between;
     gap: var(--space-md);
     width: 100%;
-    max-width: 600px;
+    max-width: min(90vw, 720px);
     background: var(--white);
     padding: var(--space-md);
     border-radius: var(--radius-lg);
@@ -125,7 +130,7 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: var(--space-lg);
     width: 100%;
-    max-width: 600px;
+    max-width: min(90vw, 720px);
     text-align: center;
 }
 
@@ -145,7 +150,7 @@ body {
     border-radius: var(--radius-lg);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 600px;
+    max-width: min(90vw, 720px);
     margin: 0 auto;
 }
 
