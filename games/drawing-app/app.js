@@ -119,7 +119,9 @@ function loadPicture(pictureId) {
 function initCanvas(svgContent) {
     const canvasWrapper = document.querySelector('.canvas-wrapper');
     const wrapperWidth = canvasWrapper.clientWidth - 40;
-    const wrapperHeight = Math.min(600, window.innerHeight * 0.5);
+    const wrapperHeight = canvasWrapper.clientHeight > 80
+        ? canvasWrapper.clientHeight - 40
+        : window.innerHeight * 0.6;
 
     canvas = document.getElementById('drawing-canvas');
     ctx = canvas.getContext('2d');
@@ -192,6 +194,7 @@ function setTool(tool) {
     currentTool = tool;
 
     // Update active state
+    document.querySelectorAll('.tool-btn').forEach(btn => btn.classList.remove('active'));
     const activeBtn = Array.from(document.querySelectorAll('.tool-btn')).find(btn => {
         if (btn.dataset.tool === tool) {
             btn.classList.add('active');

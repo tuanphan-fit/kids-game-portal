@@ -127,6 +127,8 @@ class ParticleSystem {
         const config = {
             emoji: options.emoji || '✨',
             size: options.size || 30,
+            x: x,
+            y: y,
             vx: vx,
             vy: vy,
             gravity: options.gravity || 0.2,
