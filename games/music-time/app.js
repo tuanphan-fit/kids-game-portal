@@ -519,7 +519,14 @@ function playPianoDemo() {
         { note: 'G', duration: 400 },
         { note: 'A', duration: 400 },
         { note: 'A', duration: 400 },
-        { note: 'G', duration: 800 }
+        { note: 'G', duration: 800 },
+        { note: 'F', duration: 400 },
+        { note: 'F', duration: 400 },
+        { note: 'E', duration: 400 },
+        { note: 'E', duration: 400 },
+        { note: 'D', duration: 400 },
+        { note: 'D', duration: 400 },
+        { note: 'C', duration: 800 }
     ];
 
     let delay = 0;
@@ -571,10 +578,15 @@ function goBack() {
     GameNavigation.navigateToPortal();
 }
 
-// Prevent default touch behaviors
-document.addEventListener('touchmove', function(e) {
-    e.preventDefault();
-}, { passive: false });
+// Prevent default touch behaviors only within keys container
+(function() {
+    var keysContainerEl = document.querySelector('.keys-container');
+    if (keysContainerEl) {
+        keysContainerEl.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+    }
+})();
 
 document.addEventListener('gesturestart', function(e) {
     e.preventDefault();

@@ -18,7 +18,8 @@ html, body {
     overflow: auto; /* Changed from hidden to allow scrolling */
     position: relative; /* Changed from fixed */
     width: 100%;
-    min-height: 100vh; /* Changed from height to min-height */
+    min-height: 100vh;
+    min-height: 100dvh;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
 }
@@ -35,7 +36,8 @@ body {
    2. CONTAINER
    ======================================== */
 .stories-container {
-    min-height: 100vh; /* Changed from height to min-height */
+    min-height: 100vh;
+    min-height: 100dvh;
     width: 100%;
     display: flex;
     flex-direction: column;

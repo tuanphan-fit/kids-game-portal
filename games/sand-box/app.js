@@ -124,7 +124,7 @@ function stopAutoPour() {
 
 function batchPour() {
     if (objectCount >= MAX_OBJECTS) {
-        alert('Too much sand! Reset to add more.');
+        console.warn('Too much sand! Reset to add more.');
         return;
     }
 
@@ -171,7 +171,7 @@ function selectTool(tool) {
     });
 
     if (tool !== 'none') {
-        alert(`${tool.charAt(0).toUpperCase() + tool.slice(1)} selected! Click on sand to use.`);
+        console.log(tool.charAt(0).toUpperCase() + tool.slice(1) + ' selected');
     }
 }
 

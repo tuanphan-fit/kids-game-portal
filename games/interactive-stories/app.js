@@ -191,10 +191,21 @@ function showStorySelection() {
     currentStory = null;
 }
 
+var _sharedAudioCtx = null;
+function getSharedAudioContext() {
+    if (!_sharedAudioCtx) {
+        _sharedAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (_sharedAudioCtx.state === 'suspended') {
+        _sharedAudioCtx.resume();
+    }
+    return _sharedAudioCtx;
+}
+
 // Play completion sound
 function playCompleteSound() {
     try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const audioContext = getSharedAudioContext();
 
         // Play happy melody
         const now = audioContext.currentTime;
@@ -226,10 +237,7 @@ function goBack() {
     GameNavigation.navigateToPortal();
 }
 
-// Prevent default touch behaviors
-document.addEventListener('touchmove', function(e) {
-    e.preventDefault();
-}, { passive: false });
+// Touchmove prevention removed - story text needs scrolling on touch devices
 
 document.addEventListener('gesturestart', function(e) {
     e.preventDefault();

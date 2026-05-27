@@ -64,7 +64,7 @@ function animate() {
 
 function spawnObject(type) {
     if (objectCount >= MAX_OBJECTS) {
-        alert('Too many toys! Reset to add more.');
+        console.warn('Too many toys! Reset to add more.');
         return;
     }
 

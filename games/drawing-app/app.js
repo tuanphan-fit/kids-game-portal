@@ -442,7 +442,7 @@ function undo() {
 
 // Clear canvas
 function clearCanvas() {
-    if (confirm('Clear all your coloring?')) {
+    showConfirm('Clear all your coloring?', function() {
         if (currentPicture) {
             initCanvas(currentPicture.svg);
         } else {
@@ -450,7 +450,33 @@ function clearCanvas() {
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             saveState();
         }
+    });
+}
+
+function showConfirm(message, onConfirm) {
+    var modal = document.getElementById('confirmModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'confirmModal';
+        modal.style.cssText = 'display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:500;align-items:center;justify-content:center;';
+        modal.innerHTML = '<div style="background:white;padding:2rem;border-radius:1.5rem;text-align:center;max-width:80%;box-shadow:0 8px 32px rgba(0,0,0,0.2);">' +
+            '<p style="font-size:1.25rem;font-weight:600;margin-bottom:1.5rem;color:#333;" class="confirm-message"></p>' +
+            '<div style="display:flex;gap:1rem;justify-content:center;">' +
+            '<button style="padding:0.75rem 2rem;border:none;border-radius:1rem;font-size:1rem;font-weight:700;cursor:pointer;min-width:5rem;min-height:3rem;background:#4CAF50;color:white;" class="confirm-yes">Yes</button>' +
+            '<button style="padding:0.75rem 2rem;border:none;border-radius:1rem;font-size:1rem;font-weight:700;cursor:pointer;min-width:5rem;min-height:3rem;background:#E0E0E0;color:#333;" class="confirm-no">No</button>' +
+            '</div></div>';
+        document.body.appendChild(modal);
     }
+    modal.querySelector('.confirm-message').textContent = message;
+    modal.style.display = 'flex';
+
+    modal.querySelector('.confirm-yes').onclick = function() {
+        modal.style.display = 'none';
+        if (onConfirm) onConfirm();
+    };
+    modal.querySelector('.confirm-no').onclick = function() {
+        modal.style.display = 'none';
+    };
 }
 
 // Save image

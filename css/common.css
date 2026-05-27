@@ -192,7 +192,7 @@ body {
 }
 
 .btn-success:hover {
-    background-color: color-mix(in srgb, var(--success) 85%, black 15%);
+    background-color: #419544;
     box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
 }
 
@@ -204,7 +204,7 @@ body {
 }
 
 .btn-danger:hover {
-    background-color: color-mix(in srgb, var(--danger) 85%, black 15%);
+    background-color: #CF392E;
     box-shadow: 0 6px 16px rgba(244, 67, 54, 0.4);
 }
 
@@ -216,7 +216,7 @@ body {
 }
 
 .btn-warning:hover {
-    background-color: color-mix(in srgb, var(--warning) 85%, black 15%);
+    background-color: #D98100;
     box-shadow: 0 6px 16px rgba(255, 152, 0, 0.4);
 }
 

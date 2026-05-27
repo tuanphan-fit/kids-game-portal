@@ -38,7 +38,7 @@ function saveCreation(slotId, name) {
         return true;
     } catch (e) {
         console.error('Error saving:', e);
-        alert('Save failed - storage full!');
+        console.error('Save failed - storage full!', e);
         return false;
     }
 }

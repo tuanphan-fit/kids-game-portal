@@ -61,7 +61,7 @@ function animate() {
 
 function spawnBlock() {
     if (blockCount >= MAX_BLOCKS) {
-        alert('Too many blocks! Reset to add more.');
+        console.warn('Too many blocks! Reset to add more.');
         return;
     }
     
@@ -83,7 +83,7 @@ function spawnBlock() {
     }
     
     if (!isWithinBounds(position)) {
-        alert('Cannot spawn outside building area!');
+        console.warn('Cannot spawn outside building area!');
         return;
     }
     

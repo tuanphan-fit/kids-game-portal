@@ -347,8 +347,11 @@ class MemoryGame {
     }
 
     goBack() {
-        // Navigate back to portal
-        window.location.href = '../../index.html';
+        if (typeof GameNavigation !== 'undefined') {
+            GameNavigation.navigateToPortal();
+        } else {
+            window.location.href = '../../index.html';
+        }
     }
 }
 

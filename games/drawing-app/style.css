@@ -251,74 +251,14 @@
     left: 8px;
     right: 8px;
     height: 6px;
-    background: color-mix(in srgb, var(--drawing-accent) 60%, black 40%);
+    background: #99405E;
     border-radius: 0 0 0.75rem 0.75rem;
     transform: translateZ(-1px);
     transition: all 0.2s ease;
 }
 
-/* SVG Icons - Hide emoji text, show SVG */
-.tool-btn::before {
-    content: '';
-    display: block;
-    width: 2rem;
-    height: 2rem;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-}
-
-.tool-btn span {
-    display: none; /* Hide emoji text */
-}
-
-/* Brush Icon */
-.tool-btn[data-tool="brush"]::before {
-    background-image: url('icons/brush.svg');
-}
-
-/* Fill Bucket Icon */
-.tool-btn[data-tool="fill"]::before {
-    background-image: url('icons/fill-bucket.svg');
-}
-
-/* Eraser Icon */
-.tool-btn[data-tool="eraser"]::before {
-    background-image: url('icons/eraser.svg');
-}
-
-.tool-btn:hover {
-    transform: translateY(-4px) rotateX(5deg);
-    box-shadow:
-        0 8px 20px rgba(255, 107, 157, 0.4),
-        0 4px 8px rgba(255, 107, 157, 0.3);
-}
-
-.tool-btn:hover::after {
-    bottom: -8px;
-    height: 8px;
-}
-
-.tool-btn:active {
-    transform: translateY(0) scale(0.98);
-}
-
-.tool-btn:active::after {
-    bottom: -4px;
-    height: 4px;
-}
-
-.tool-btn.active {
-    background-color: var(--success);
-    background-image: none;
-    box-shadow:
-        0 8px 20px rgba(76, 175, 80, 0.4),
-        0 4px 8px rgba(76, 175, 80, 0.3);
-    transform: scale(1.05) translateY(-2px);
-}
-
 .tool-btn.active::after {
-    background: color-mix(in srgb, var(--success) 60%, black 40%);
+    background: #2E6930;
 }
 
 /* Color Palette */
@@ -478,7 +418,7 @@
     left: 8px;
     right: 8px;
     height: 6px;
-    background: color-mix(in srgb, var(--success) 60%, black 40%);
+    background: #2E6930;
     border-radius: 0 0 0.75rem 0.75rem;
     transform: translateZ(-1px);
     transition: all 0.2s ease;
@@ -544,7 +484,7 @@
 }
 
 .clear-btn::after {
-    background: color-mix(in srgb, var(--danger) 60%, black 40%);
+    background: #922820;
 }
 
 .clear-btn:hover {
@@ -562,7 +502,7 @@
 }
 
 .undo-btn::after {
-    background: color-mix(in srgb, var(--drawing-accent) 60%, black 40%);
+    background: #99405E;
 }
 
 .undo-btn:hover {

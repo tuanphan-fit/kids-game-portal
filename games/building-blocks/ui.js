@@ -259,7 +259,7 @@ function saveToSlot(slotId) {
     const name = saveEl.querySelector('.save-name-input').value || `Building #${slotId + 1}`;
     
     if (saveCreation(slotId, name)) {
-        alert('Saved successfully!');
+        console.log('Saved successfully!');
         hideAllModals();
     }
 }
@@ -270,7 +270,7 @@ function overwriteSave(slotId) {
         const name = saveEl.querySelector('.save-name-input').value || `Building #${slotId + 1}`;
         
         if (saveCreation(slotId, name)) {
-            alert('Saved successfully!');
+            console.log('Saved successfully!');
             hideAllModals();
         }
     });
@@ -278,10 +278,10 @@ function overwriteSave(slotId) {
 
 function loadFromSlot(slotId) {
     if (loadCreation(slotId)) {
-        alert('Loaded successfully!');
+        console.log('Loaded successfully!');
         hideAllModals();
     } else {
-        alert('Load failed!');
+        console.error('Load failed!');
     }
 }
 

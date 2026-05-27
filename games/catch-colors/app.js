@@ -405,10 +405,15 @@ function goBack() {
     GameNavigation.navigateToPortal();
 }
 
-// Prevent default touch behaviors
-document.addEventListener('touchmove', function(e) {
-    e.preventDefault();
-}, { passive: false });
+// Prevent default touch behaviors only within game area
+(function() {
+    var gameAreaEl = document.querySelector('.game-area');
+    if (gameAreaEl) {
+        gameAreaEl.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+    }
+})();
 
 document.addEventListener('gesturestart', function(e) {
     e.preventDefault();

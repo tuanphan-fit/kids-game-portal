@@ -140,13 +140,13 @@
 
 /* Button States */
 .btn:hover {
-  background-color: color-mix(in srgb, var(--bg-button) 85%, black 15%);
+  background-color: #00A0B4;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
 }
 
 .btn:active {
-  background-color: color-mix(in srgb, var(--bg-button) 70%, black 30%);
+  background-color: #008494;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transform: translateY(0) scale(0.98);
 }
@@ -349,7 +349,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: color-mix(in srgb, currentColor 70%, black 30%);
+  background: rgba(0, 0, 0, 0.35);
   border-radius: 0 0 1rem 1rem;
   transform: translateZ(-1px);
   transition: all 0.2s ease;

@@ -15,6 +15,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
     padding: calc(20px + env(safe-area-inset-top))
         calc(20px + env(safe-area-inset-right))
         calc(20px + env(safe-area-inset-bottom))
