@@ -96,6 +96,27 @@
                 <h2 class="game-title">Building Blocks</h2>
                 <p class="game-description">Stack & build!</p>
             </div>
+
+            <!-- Bubble Pop - Active Game -->
+            <div class="game-card active" data-game="bubble-pop" onclick="navigateToGame('bubble-pop')">
+                <div class="game-icon">🫧</div>
+                <h2 class="game-title">Bubble Pop</h2>
+                <p class="game-description">Shoot & pop bubbles!</p>
+            </div>
+
+            <!-- Sweet Match - Active Game -->
+            <div class="game-card active" data-game="sweet-match" onclick="navigateToGame('sweet-match')">
+                <div class="game-icon">🍭</div>
+                <h2 class="game-title">Sweet Match</h2>
+                <p class="game-description">Match the candies!</p>
+            </div>
+
+            <!-- Cake Tower - Active Game -->
+            <div class="game-card active" data-game="cake-tower" onclick="navigateToGame('cake-tower')">
+                <div class="game-icon">🍰</div>
+                <h2 class="game-title">Cake Tower</h2>
+                <p class="game-description">Stack the cake!</p>
+            </div>
         </main>
 
         <footer class="footer">
@@ -141,6 +162,12 @@
                 window.location.href = 'games/sand-box/index.html';
             } else if (gameName === 'building-blocks') {
                 window.location.href = 'games/building-blocks/index.html';
+            } else if (gameName === 'bubble-pop') {
+                window.location.href = 'games/bubble-pop/index.html';
+            } else if (gameName === 'sweet-match') {
+                window.location.href = 'games/sweet-match/index.html';
+            } else if (gameName === 'cake-tower') {
+                window.location.href = 'games/cake-tower/index.html';
             }
         }
     </script>
