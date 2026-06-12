@@ -117,6 +117,34 @@
                 <h2 class="game-title">Cake Tower</h2>
                 <p class="game-description">Stack the cake!</p>
             </div>
+
+            <!-- Kitty Run - Active Game -->
+            <div class="game-card active" data-game="kitty-run" onclick="navigateToGame('kitty-run')">
+                <div class="game-icon">🐾</div>
+                <h2 class="game-title">Kitty Run</h2>
+                <p class="game-description">Run & catch coins!</p>
+            </div>
+
+            <!-- Whack-a-Mole - Active Game -->
+            <div class="game-card active" data-game="whack-a-mole" onclick="navigateToGame('whack-a-mole')">
+                <div class="game-icon">🔨</div>
+                <h2 class="game-title">Whack-a-Mole</h2>
+                <p class="game-description">Bonk the critters!</p>
+            </div>
+
+            <!-- Balloon Pop - Active Game -->
+            <div class="game-card active" data-game="balloon-pop" onclick="navigateToGame('balloon-pop')">
+                <div class="game-icon">🎈</div>
+                <h2 class="game-title">Balloon Pop</h2>
+                <p class="game-description">Pop pop pop!</p>
+            </div>
+
+            <!-- Feed the Pet - Active Game -->
+            <div class="game-card active" data-game="feed-the-pet" onclick="navigateToGame('feed-the-pet')">
+                <div class="game-icon">🍎</div>
+                <h2 class="game-title">Feed the Pet</h2>
+                <p class="game-description">Yum yum!</p>
+            </div>
         </main>
 
         <footer class="footer">
@@ -168,6 +196,14 @@
                 window.location.href = 'games/sweet-match/index.html';
             } else if (gameName === 'cake-tower') {
                 window.location.href = 'games/cake-tower/index.html';
+            } else if (gameName === 'kitty-run') {
+                window.location.href = 'games/kitty-run/index.html';
+            } else if (gameName === 'whack-a-mole') {
+                window.location.href = 'games/whack-a-mole/index.html';
+            } else if (gameName === 'balloon-pop') {
+                window.location.href = 'games/balloon-pop/index.html';
+            } else if (gameName === 'feed-the-pet') {
+                window.location.href = 'games/feed-the-pet/index.html';
             }
         }
     </script>

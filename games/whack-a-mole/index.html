@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <!-- iOS Fullscreen Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Whack-a-Mole">
+
+    <title>Whack-a-Mole - My Game World</title>
+    <link rel="stylesheet" href="../../css/common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="mole-container">
+        <header class="mole-header">
+            <button class="btn-back" onclick="goBack()">
+                <span class="arrow">←</span> Back
+            </button>
+            <h1 class="mole-title">🔨 Whack-a-Mole</h1>
+            <div class="score-display">
+                <span class="score-label">⭐</span>
+                <span class="score-value" id="score">0</span>
+            </div>
+        </header>
+
+        <div class="game-area" id="gameArea">
+            <div class="mole-grid" id="moleGrid"></div>
+        </div>
+
+        <div class="banner" id="banner" style="display: none;"></div>
+        <div class="confetti-layer" id="confettiLayer"></div>
+    </div>
+
+    <!-- Tap to Start Overlay -->
+    <div id="tapToStartOverlay" class="tap-to-start-overlay">
+        <div class="tap-content">
+            <div class="tap-icon">👆</div>
+            <h1 class="tap-title">Tap to Start!</h1>
+            <p class="tap-subtitle">Bonk the critters when they pop up!</p>
+        </div>
+    </div>
+
+    <script src="../../js/navigation.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
