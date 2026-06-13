@@ -163,7 +163,6 @@ function getDeleteMode() {
 }
 
 function goBack() {
-    resetScene();
     GameNavigation.navigateToPortal();
 }
 

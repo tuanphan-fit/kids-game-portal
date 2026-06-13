@@ -61,7 +61,7 @@ function renderPictureSelection() {
         // Set viewBox and preserve aspect ratio
         svgElement.setAttribute('width', '100%');
         svgElement.setAttribute('height', '100%');
-        svgElement.setAttribute('viewBox', '0 0 400 500');
+        svgElement.setAttribute('viewBox', '0 0 400 400');
         svgElement.style.borderRadius = '10px';
 
         const nameDiv = document.createElement('div');
@@ -105,9 +105,9 @@ function loadPicture(pictureId) {
     currentPicture = coloringPictures.find(p => p.id === pictureId);
     if (!currentPicture) return;
 
-    // Switch to coloring screen
+    // Switch to coloring screen (flex so the canvas fills the space)
     document.getElementById('pictureSelection').style.display = 'none';
-    document.getElementById('coloringScreen').style.display = 'block';
+    document.getElementById('coloringScreen').style.display = 'flex';
     document.getElementById('backBtn').style.display = 'none';
     document.getElementById('homeBtn').style.display = 'block';
 
@@ -142,10 +142,10 @@ function initCanvas(svgContent) {
         // Calculate scaling to fit canvas while maintaining aspect ratio
         const scale = Math.min(
             canvas.width / 400,
-            canvas.height / 500
+            canvas.height / 400
         );
         const scaledWidth = 400 * scale;
-        const scaledHeight = 500 * scale;
+        const scaledHeight = 400 * scale;
         const x = (canvas.width - scaledWidth) / 2;
         const y = (canvas.height - scaledHeight) / 2;
 
@@ -256,10 +256,7 @@ function setSize(size) {
 
     // Update active state
     document.querySelectorAll('.size-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.textContent.includes(size === 5 ? '⚫' : size === 15 ? '⚫⚫' : '⚫⚫⚫')) {
-            btn.classList.add('active');
-        }
+        btn.classList.toggle('active', parseInt(btn.dataset.size, 10) === size);
     });
 }
 
@@ -490,7 +487,7 @@ function saveImage() {
 
 // Show picture selection (go back home)
 function showPictureSelection() {
-    document.getElementById('pictureSelection').style.display = 'block';
+    document.getElementById('pictureSelection').style.display = 'flex';
     document.getElementById('coloringScreen').style.display = 'none';
     document.getElementById('backBtn').style.display = 'block';
     document.getElementById('homeBtn').style.display = 'none';

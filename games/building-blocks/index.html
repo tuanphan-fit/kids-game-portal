@@ -11,39 +11,51 @@
     <title>Building Blocks - My Game World</title>
     <link rel="stylesheet" href="../../css/common.css">
     <link rel="stylesheet" href="../../css/design-system.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
     <div class="building-blocks-container">
-        <header class="bb-header">
-            <button class="btn btn-back" onclick="goBack()">
-                <span class="arrow">←</span> Back
-            </button>
-            <h1 class="bb-title">🧱 Building Blocks</h1>
-            <button class="btn btn-reset" onclick="resetScene()">
-                🗑️ Reset
-            </button>
-        </header>
-
-        <div id="loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.5rem; color: #0277BD; font-weight: bold; z-index: 100;">Loading 3D game...</div>
+        <!-- Full-screen 3D play area -->
         <canvas id="gameCanvas"></canvas>
 
-        <div class="toolbar">
-            <button class="btn btn-sm btn-primary" id="snapModeBtn" onclick="toggleSnapMode()">🧲 Snap Mode</button>
-            <button class="btn btn-sm btn-primary" id="orbitModeBtn" onclick="toggleOrbitMode()">🔨 Build Mode</button>
-            <button class="btn btn-sm" id="deleteModeBtn" onclick="toggleDeleteMode()">🗑️ Delete: OFF</button>
-            <div class="block-counter">Blocks: <span id="blockCount">0</span>/200</div>
+        <div id="loading">Loading 3D game…</div>
+
+        <!-- Floating top bar -->
+        <header class="bb-topbar">
+            <button class="bb-icon-btn" onclick="goBack()" aria-label="Back">←</button>
+            <h1 class="bb-title">🧱 Building Blocks</h1>
+            <div class="bb-counter"><span id="blockCount">0</span><small>/200</small></div>
+        </header>
+
+        <!-- Helpful hint that fades away -->
+        <div class="bb-hint" id="bbHint">👆 Tap a shape to drop it • Drag blocks to move them</div>
+
+        <!-- Right-side tool rail -->
+        <div class="bb-tools">
+            <button class="bb-tool active" id="orbitModeBtn" onclick="toggleOrbitMode()">
+                <span class="ico">🔨</span><span class="lbl">Build</span>
+            </button>
+            <button class="bb-tool active" id="snapModeBtn" onclick="toggleSnapMode()">
+                <span class="ico">🧲</span><span class="lbl">Snap</span>
+            </button>
+            <button class="bb-tool" id="deleteModeBtn" onclick="toggleDeleteMode()">
+                <span class="ico">🗑️</span><span class="lbl">Erase</span>
+            </button>
+            <button class="bb-tool" onclick="showSaveModal()">
+                <span class="ico">💾</span><span class="lbl">Save</span>
+            </button>
+            <button class="bb-tool" onclick="showLoadModal()">
+                <span class="ico">📂</span><span class="lbl">Load</span>
+            </button>
+            <button class="bb-tool danger" onclick="resetScene()">
+                <span class="ico">♻️</span><span class="lbl">Clear</span>
+            </button>
         </div>
 
-        <div class="block-type-selector" id="blockTypeSelector">
-        </div>
-
-        <div class="color-palette" id="colorPalette">
-        </div>
-
-        <div class="actions">
-            <button class="btn btn-primary" onclick="showSaveModal()">💾 Save</button>
-            <button class="btn btn-primary" onclick="showLoadModal()">📂 Load</button>
+        <!-- Bottom dock: shapes + colors -->
+        <div class="bb-dock">
+            <div class="block-type-selector" id="blockTypeSelector"></div>
+            <div class="color-palette" id="colorPalette"></div>
         </div>
     </div>
 
@@ -98,12 +110,12 @@
             alert('Error: Cannon.js failed to load from CDN. Please check your internet connection.');
         }
     </script>
-    <script src="blocks.js"></script>
-    <script src="scene.js"></script>
-    <script src="physics.js"></script>
-    <script src="input.js"></script>
-    <script src="storage.js"></script>
-    <script src="ui.js"></script>
-    <script src="app.js"></script>
+    <script src="blocks.js?v=2"></script>
+    <script src="scene.js?v=2"></script>
+    <script src="physics.js?v=2"></script>
+    <script src="input.js?v=2"></script>
+    <script src="storage.js?v=2"></script>
+    <script src="ui.js?v=2"></script>
+    <script src="app.js?v=2"></script>
 </body>
 </html>

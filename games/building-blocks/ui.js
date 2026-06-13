@@ -72,35 +72,39 @@ function selectColor(color) {
     });
 }
 
+function setToolButton(btn, icon, label, active) {
+    if (!btn) return;
+    const ico = btn.querySelector('.ico');
+    const lbl = btn.querySelector('.lbl');
+    if (ico) ico.textContent = icon;
+    if (lbl) lbl.textContent = label;
+    btn.classList.toggle('active', active);
+}
+
 function updateUIState() {
-    const snapBtn = document.getElementById('snapModeBtn');
-    if (window.getSnapMode && window.getSnapMode()) {
-        snapBtn.textContent = '🧲 Snap Mode';
-        snapBtn.classList.add('active');
-    } else {
-        snapBtn.textContent = '🔓 Free Mode';
-        snapBtn.classList.remove('active');
-    }
-    
-    const orbitBtn = document.getElementById('orbitModeBtn');
-    if (window.getOrbitMode && window.getOrbitMode()) {
-        orbitBtn.textContent = '🔄 Orbit Mode';
-        orbitBtn.classList.add('active');
-    } else {
-        orbitBtn.textContent = '🔨 Build Mode';
-        orbitBtn.classList.remove('active');
-    }
-    
+    // Build / Look mode (orbit off = build & drag, orbit on = rotate view)
+    const orbitOn = window.getOrbitMode && window.getOrbitMode();
+    setToolButton(
+        document.getElementById('orbitModeBtn'),
+        orbitOn ? '👀' : '🔨',
+        orbitOn ? 'Look' : 'Build',
+        !orbitOn
+    );
+
+    // Snap to grid
+    const snapOn = window.getSnapMode && window.getSnapMode();
+    setToolButton(
+        document.getElementById('snapModeBtn'),
+        snapOn ? '🧲' : '🔓',
+        snapOn ? 'Snap' : 'Free',
+        snapOn
+    );
+
+    // Delete mode
+    const deleteOn = window.getDeleteMode && window.getDeleteMode();
     const deleteBtn = document.getElementById('deleteModeBtn');
-    if (window.getDeleteMode && window.getDeleteMode()) {
-        deleteBtn.textContent = '🗑️ Delete: ON';
-        deleteBtn.classList.add('active');
-        deleteBtn.classList.add('danger');
-    } else {
-        deleteBtn.textContent = '🗑️ Delete: OFF';
-        deleteBtn.classList.remove('active');
-        deleteBtn.classList.remove('danger');
-    }
+    setToolButton(deleteBtn, '🗑️', deleteOn ? 'ON' : 'Erase', deleteOn);
+    if (deleteBtn) deleteBtn.classList.toggle('danger', deleteOn);
 }
 
 function setupModalHandlers() {
