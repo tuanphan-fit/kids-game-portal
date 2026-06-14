@@ -448,6 +448,33 @@ body {
     margin: 10px 0;
 }
 
+/* Landscape on short screens (e.g. iPad in landscape, ~820px tall):
+   the fixed-size GameBoy device + header + banner is taller than the
+   viewport, so the bottom of the device (speaker/branding) got clipped.
+   Hide the help banner, tighten the header, and scale the device down to
+   fit, compensating the layout box with a negative margin so the page
+   doesn't scroll. */
+@media (orientation: landscape) and (max-height: 900px) {
+    body {
+        align-items: flex-start;
+    }
+
+    .game-header {
+        margin-bottom: 12px;
+        padding: 10px 24px;
+    }
+
+    .instruction-banner {
+        display: none;
+    }
+
+    .gameboy {
+        transform: scale(0.82);
+        transform-origin: top center;
+        margin-bottom: calc(-0.18 * 744px);
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .gameboy {

@@ -152,7 +152,10 @@ body {
     border-radius: var(--radius-lg);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: min(90vw, 720px);
+    /* Cap by available height too, so the square 4x4 board never gets its
+       bottom row clipped in landscape (where height, not width, is the
+       limiting dimension on an iPad). */
+    max-width: min(90vw, 720px, calc(100dvh - 220px));
     margin: 0 auto;
 }
 

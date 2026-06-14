@@ -144,7 +144,9 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0.5rem;
-    max-width: clamp(320px, 80vw, 720px);
+    /* Cap by available height too so the square 4x4 board's bottom row is
+       never clipped in landscape (where height is the limiting dimension). */
+    max-width: min(clamp(320px, 80vw, 720px), calc(100dvh - 190px));
     width: 90%;
     margin: 0 auto;
     padding: var(--spacing-5);
